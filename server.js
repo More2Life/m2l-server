@@ -21,7 +21,7 @@ var router = express.Router();              // get an instance of the express Ro
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.get('/', function(req, res) {
-    res.json({ message: 'Boom! You found the API!' });
+    res.json({ message: 'Welcome to the More2Life App API!' });
 });
 
 // more routes for our API will happen here
