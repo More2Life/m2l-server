@@ -1,0 +1,31 @@
+[
+  {
+    "identifier" : "video1",
+    "title" : "Video One",
+    "description" : "The first FeedItem, which is a video",
+    "index" : 0,
+    "previewImageUrl" : "http://vignette4.wikia.nocookie.net/byufootball/images/c/cb/Jonny-harline.jpg/revision/latest?cb=20120215040008",
+    "videoUrl" : "https://www.youtube.com/watch?v=RnJbeswDpVg",
+    "publishDate" : "2006",
+    "views" : 1000000000
+  },
+  {
+    "identifier" : "event1",
+    "title" : "Event One",
+    "description" : "The first FeedItem, which is an event",
+    "index" : 1,
+    "coordinates" : "33.5609,-111.6734",
+    "address" : "7314 E Minton Cir, Mesa, AZ 85207"
+  },
+  {
+    "identifier" : "listing1",
+    "title" : "Listing One",
+    "description" : "This rad M2L shirt",
+    "index" : 2,
+    "previewImageUrl" : "https://static1.squarespace.com/static/589cd8763a04119f4ac96b94/5935c61303596eebfc69fb24/5935c85fa5790a30526cd72b/1496701404713/17FTB+More2Life+Harlem+1226.CR2.jpg",
+    "Product" : {
+      "identifier" : "product1",
+      "price" : 29.99
+    }
+  }
+]

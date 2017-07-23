@@ -1,0 +1,81 @@
+#%RAML 1.0
+title: More2Life API
+baseUri: https://m2l-server.herokuapp.com/api
+mediaType: application/json
+
+types:
+  FeedItem:
+    type: object
+    properties:
+      identifier:
+        type: string
+        description: The unique identifier of the item
+      title:
+        type: string
+        description: The title / name of the item
+      description:
+        type: string
+        description: The description of the content in the item
+      index:
+        type: integer
+        description: The position of the item in the feed. Used for sorting and paging
+  Video:
+    type: FeedItem
+    properties:
+      previewImageUrl:
+        description: The url to the image for the frame of the video to show as a preview
+        type: string
+      videoUrl:
+        description: The url to the video stream
+        type: string
+      publishDate:
+        description: The date the video was published
+        type: string
+      views:
+        description: The number of times the video was viewed
+        type: integer
+  Event:
+    type: FeedItem
+    properties:
+      coordinates:
+        description: The GPS coordinates to show the event on a map
+        type: string
+      address:
+        description: The street address of the location
+        type: string
+  Listing:
+    type: FeedItem
+    properties:
+      Product:
+        type: Product
+        description: The product featured in the feed Listing
+      previewImageUrl:
+        type: string
+        description: The url to the image for the product to show as a preview
+  Product:
+    description: A product to be sold in the store
+    properties:
+      identifier:
+        type: string
+        description: The unique identifier of the product
+      price:
+        type: number
+        format: float
+        description: The price of the item
+
+/feed:
+  description: Get a feed of content
+  displayName: Feed
+  get:
+    queryParameters:
+      count?: integer
+      index?: integer
+    headers:
+      Accept-Language:
+        description: The language the application is running in. Titles, descriptions, and any other user facing string should come down from the server translated in that language.
+    responses:
+      200:
+        body:
+          application/json:
+            type: FeedItem[]
+            example: !include /examples/feed-example.json
