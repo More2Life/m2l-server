@@ -8,15 +8,8 @@ var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-
-// DB Connection
-mongoose.connect(process.env.MONGODB_URI);
-var Schema = mongoose.Schema;
-module.exports = Schema;
-
-// var FeedItem = require('.models/feedItem.js');
-
-
+var database = require('./controllers/database');
+var FeedItem = mongoose.model('FeedItem');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -34,21 +27,23 @@ router.get('/', function(req, res) {
     res.json({ message: 'Welcome to the More2Life App API!' });
 });
 
-router.get('/feed', function (req, res) {
 
-    // get all the feedItems
-    // FeedItem.find({}, function(err, feedItems) {
-    //     if (err) throw err;
-    //
-    //     // object of all the users
-    //     console.log(feedItems);
-    // });
-})
 // more routes for our API will happen here
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/api', router);
+
+router.get('/feed', function (req, res) {
+    console.log('hello');
+    // get all the feedItems
+    FeedItem.find({}, function(err, feedItems) {
+        if (err) throw err;
+
+        // object of all the users
+        console.log('THE FEED ITEMS');
+    });
+});
 
 // START THE SERVER
 // =============================================================================
