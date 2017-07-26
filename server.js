@@ -14,7 +14,7 @@ mongoose.connect(process.env.MONGODB_URI);
 var Schema = mongoose.Schema;
 module.exports = Schema;
 
-var FeedItem = require('.models/feedItem.js');
+// var FeedItem = require('.models/feedItem.js');
 
 
 
@@ -37,12 +37,12 @@ router.get('/', function(req, res) {
 router.get('/feed', function (req, res) {
 
     // get all the feedItems
-    FeedItem.find({}, function(err, feedItems) {
-        if (err) throw err;
-
-        // object of all the users
-        console.log(feedItems);
-    });
+    // FeedItem.find({}, function(err, feedItems) {
+    //     if (err) throw err;
+    //
+    //     // object of all the users
+    //     console.log(feedItems);
+    // });
 })
 // more routes for our API will happen here
 
