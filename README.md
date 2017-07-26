@@ -7,4 +7,4 @@ More2Life App Server
 2. `cd m2l-server`
 3. `npm install`
 4. Setup [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
-5.  `heroku config:get MONGODB_URI -s  >> .env`
+5.  `heroku config:get MONGODB_URI_TEST -s  >> .env`

@@ -1,13 +1,14 @@
 var mongoose = require('mongoose');
 
 // DB Connection
-const connectionURI = process.env.IS_PRODUCTION ? process.env.MONGODB_URI : MONGODB_URI_TEST;
+const connectionURI = process.env.IS_PRODUCTION ? process.env.MONGODB_URI : process.env.MONGODB_URI_TEST;
+console.log(connectionURI);
 mongoose.connect(connectionURI);
 
 // CONNECTION EVENTS
 // When successfully connected
 mongoose.connection.on('connected', function () {
-    console.log('Mongoose default connection open to db/Lavell');
+    console.log('Mongoose default connection open to db');
 });
 
 // If the connection throws an error
