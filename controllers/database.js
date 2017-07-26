@@ -3,12 +3,10 @@ var mongoose = require('mongoose');
 // DB Connection
 mongoose.connect(process.env.MONGODB_URI);
 
-console.log('database');
-
 // CONNECTION EVENTS
 // When successfully connected
 mongoose.connection.on('connected', function () {
-    console.log('Mongoose default connection open to ' + dbURI);
+    console.log('Mongoose default connection open to db/Lavell');
 });
 
 // If the connection throws an error
@@ -22,12 +20,12 @@ mongoose.connection.on('disconnected', function () {
 });
 
 // If the Node process ends, close the Mongoose connection
-process.on('SIGINT', function() {
-    mongoose.connection.close(function () {
-        console.log('Mongoose default connection disconnected through app termination');
-        process.exit(0);
-    });
-});
+// process.on('SIGINT', function() {
+//     mongoose.connection.close(function () {
+//         console.log('Mongoose default connection disconnected through app termination');
+//         process.exit(0);
+//     });
+// });
 
 // SCHEMAS & MODELS
 require('./../models/feedItem');

@@ -1,7 +1,7 @@
 var mongoose = require( 'mongoose' );
 
 // create feedItem schema
-// var options = { discriminatorKey: 'type' };
+var options = { discriminatorKey: 'type' };
 
 var feedItemSchema = new mongoose.Schema({
     _id: {
@@ -10,7 +10,9 @@ var feedItemSchema = new mongoose.Schema({
     title: String,
     description: String,
     index: Number
-});
+}, options);
 
 // create model
-var FeedItem = mongoose.model('FeedItem', feedItemSchema);
+var FeedItem = mongoose.model('feeditems', feedItemSchema);
+
+// module.exports.model = FeedItem;
