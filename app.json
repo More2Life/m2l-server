@@ -3,6 +3,9 @@
   "scripts": {
   },
   "env": {
+    "MONGODB_URI_TEST": {
+      "required": true
+    }
   },
   "formation": {
   },

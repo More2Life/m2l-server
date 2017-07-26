@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 
 // DB Connection
-mongoose.connect(process.env.MONGODB_URI);
+const connectionURI = process.env.IS_PRODUCTION ? process.env.MONGODB_URI : MONGODB_URI_TEST;
+mongoose.connect(connectionURI);
 
 // CONNECTION EVENTS
 // When successfully connected
