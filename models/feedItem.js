@@ -14,5 +14,3 @@ var feedItemSchema = new mongoose.Schema({
 
 // create model
 var FeedItem = mongoose.model('feeditems', feedItemSchema);
-
-// module.exports.model = FeedItem;

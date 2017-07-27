@@ -1,6 +1,6 @@
 var database = require('./controllers/database');
 var mongoose = require('mongoose');
-var FeedItem = mongoose.model('FeedItems');
+var FeedItem = mongoose.model('feeditems');
 
 // Create video schema. Inherit FeedItem
 var videoSchema = database.Schema({

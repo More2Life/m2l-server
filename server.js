@@ -8,7 +8,7 @@ var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var database = require('./controllers/database');
+var database = require('./utilities/database');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -38,7 +38,7 @@ router.get('/', function(req, res) {
 // all of our routes will be prefixed with /api
 app.use('/api', router);
 
-router.get('/feed', function (req, res) {
+router.get('/feedItems', function (req, res) {
     console.log('GET Feed Items');
     // get all the feedItems
     FeedItem.find({}, function(err, feedItems) {
