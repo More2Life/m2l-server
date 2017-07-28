@@ -1,6 +1,7 @@
 [
   {
-    "identifier" : "video1",
+    "_id" : "video1",
+    "type" : "Video",
     "title" : "Video One",
     "description" : "The first FeedItem, which is a video",
     "index" : 0,
@@ -10,22 +11,24 @@
     "views" : 1000000000
   },
   {
-    "identifier" : "event1",
+    "_id" : "event1",
+    "type" : "Event",
     "title" : "Event One",
     "description" : "The first FeedItem, which is an event",
     "index" : 1,
     "coordinates" : "33.5609,-111.6734",
     "address" : "7314 E Minton Cir, Mesa, AZ 85207",
-    "eventURL" : "https://www.eventbrite.com/e/kalani-sitake-more2life-foundation-luncheon-tickets-35192924986#"
+    "eventUrl" : "https://www.eventbrite.com/e/kalani-sitake-more2life-foundation-luncheon-tickets-35192924986#"
   },
   {
-    "identifier" : "listing1",
+    "_id" : "listing1",
+    "type" : "Listing",
     "title" : "Listing One",
     "description" : "This rad M2L shirt",
     "index" : 2,
     "previewImageUrl" : "https://static1.squarespace.com/static/589cd8763a04119f4ac96b94/5935c61303596eebfc69fb24/5935c85fa5790a30526cd72b/1496701404713/17FTB+More2Life+Harlem+1226.CR2.jpg",
     "Product" : {
-      "identifier" : "product1",
+      "_id" : "product1",
       "price" : 29.99
     }
   }
