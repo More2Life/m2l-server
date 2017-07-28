@@ -7,7 +7,7 @@ types:
   FeedItem:
     type: object
     properties:
-      identifier:
+      _id:
         type: string
         description: The unique identifier of the item
       title:
@@ -19,6 +19,10 @@ types:
       index:
         type: integer
         description: The position of the item in the feed. Used for sorting and paging
+      type:
+        type: string
+        enum: [Video, Event, Listing]
+
   Video:
     type: FeedItem
     properties:
@@ -58,7 +62,7 @@ types:
   Product:
     description: A product to be sold in the store
     properties:
-      identifier:
+      _id:
         type: string
         description: The unique identifier of the product
       price:
@@ -66,13 +70,16 @@ types:
         format: float
         description: The price of the item
 
-/feed:
+/feedItems:
   description: Get a feed of content
   displayName: Feed
   get:
     queryParameters:
       count?: integer
       index?: integer
+      type?:
+        enum: [Video, Event, Listing]
+        description: Used to request feed items of only one type
     headers:
       Accept-Language:
         description: The language the application is running in. Titles, descriptions, and any other user facing string should come down from the server translated in that language.

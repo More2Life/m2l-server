@@ -63,3 +63,6 @@ typings/
 .env
 
 *.iml
+
+#dumb Mac OS files
+.DS_Store
