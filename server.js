@@ -27,7 +27,7 @@ var Event = require('./models/event').Event;
 
 // CONTROLLERS
 // =============================================================================
-var feedItemController = require ('./controllers/feedItemController');
+var feedItemController = require ('./controllers/feedItemController').FeedItemController;
 
 
 // ROUTES FOR OUR API

@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var FeedItem = require('./models/feedItem').FeedItem;
+var FeedItem = require('../models/feedItem').FeedItem;
 
 var FeedItemController = {
 
@@ -30,4 +30,4 @@ var FeedItemController = {
     }
 }
 
-module.exports = FeedItemController;
+exports.FeedItemController = FeedItemController;
