@@ -20,7 +20,10 @@ var port = process.env.PORT || 8080;        // set our port
 
 // MODELS
 // =============================================================================
-var FeedItem = mongoose.model('feeditems');
+var FeedItem = require('./models/feedItem').FeedItem;
+var Video = require('./models/video').Video;
+var Listing = require('./models/listing').Listing;
+var Event = require('./models/event').Event;
 
 
 
@@ -40,14 +43,74 @@ app.use('/api', router);
 
 router.get('/feedItems', function (req, res) {
     console.log('GET Feed Items');
-    // get all the feedItems
-    FeedItem.find({}, function(err, feedItems) {
-        if (err) throw err;
+    var requestedCount = parseInt(req.query.count);
+    var requestedIndex = parseInt(req.query.index);
+    var requestedType = req.query.type;
+    console.log('Requested Count: ' + requestedCount);
+    console.log('Requested Index: ' + requestedIndex);
+    console.log('Requested Type: ' + requestedType);
 
-        // array of feed items
-        console.log(feedItems);
-        res.json(feedItems);
-    });
+    if (requestedType && requestedCount && requestedIndex) {
+        FeedItem.find({type: requestedType, index: {$gt: requestedIndex}})
+            .limit(requestedCount)
+            .sort('index')
+            .exec(function(err, feedItems) {
+                if (err) throw err;
+
+                // array of feed items
+                console.log(feedItems);
+                res.json(feedItems);
+        });
+    } else if (requestedType && requestedCount) {
+        FeedItem.find({type: requestedType, index: {$gte: 0}})
+            .limit(requestedCount)
+            .sort('index')
+            .exec(function(err, feedItems) {
+                if (err) throw err;
+
+                // array of feed items
+                console.log(feedItems);
+                res.json(feedItems);
+            });
+    } else if (requestedCount && requestedIndex) {
+        FeedItem.find({index: {$gt: requestedIndex}})
+            .limit(requestedCount)
+            .sort('index')
+            .exec(function(err, feedItems) {
+                if (err) throw err;
+
+                // array of feed items
+                console.log(feedItems);
+                res.json(feedItems);
+            });
+    } else if (requestedCount) {
+        FeedItem.find({index: {$gte: 0}})
+            .limit(requestedCount)
+            .sort('index')
+            .exec(function(err, feedItems) {
+                if (err) throw err;
+
+                // array of feed items
+                console.log(feedItems);
+                res.json(feedItems);
+            });
+    } else if (requestedType) {
+        FeedItem.find({type: requestedType}, function(err, feedItems) {
+            if (err) throw err;
+
+            // array of feed items
+            console.log(feedItems);
+            res.json(feedItems);
+        });
+    } else {
+        FeedItem.find({}, function(err, feedItems) {
+            if (err) throw err;
+
+            // array of feed items
+            console.log(feedItems);
+            res.json(feedItems);
+        });
+    }
 });
 
 // START THE SERVER
