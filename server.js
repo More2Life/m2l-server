@@ -96,6 +96,7 @@ router.get('/feedItems', function (req, res) {
             });
     } else if (requestedType) {
         FeedItem.find({type: requestedType})
+            .limit(requestedCount)
             .sort('-index')
             .exec(function(err, feedItems) {
                 if (err) throw err;
