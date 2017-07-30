@@ -8,7 +8,7 @@ var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var database = require('./utilities/database');
+var database = require('./database/database');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -25,6 +25,9 @@ var Video = require('./models/video').Video;
 var Listing = require('./models/listing').Listing;
 var Event = require('./models/event').Event;
 
+// CONTROLLERS
+// =============================================================================
+var feedItemController = require ('./controllers/feedItemController');
 
 
 // ROUTES FOR OUR API
@@ -43,78 +46,11 @@ app.use('/api', router);
 
 router.get('/feedItems', function (req, res) {
     console.log('GET Feed Items');
-    var requestedCount = parseInt(req.query.count);
-    var requestedIndex = parseInt(req.query.index);
-    var requestedType = req.query.type;
-    console.log('Requested Count: ' + requestedCount);
-    console.log('Requested Index: ' + requestedIndex);
-    console.log('Requested Type: ' + requestedType);
 
-    if (requestedType && requestedCount && requestedIndex) {
-        FeedItem.find({type: requestedType, index: {$lt: requestedIndex}})
-            .limit(requestedCount)
-            .sort('-index')
-            .exec(function(err, feedItems) {
-                if (err) throw err;
-
-                // array of paginated feed items of a certain type
-                console.log(feedItems);
-                res.json(feedItems);
-        });
-    } else if (requestedType && requestedCount) {
-        FeedItem.find({type: requestedType})
-            .limit(requestedCount)
-            .sort('-index')
-            .exec(function(err, feedItems) {
-                if (err) throw err;
-
-                // array of specific number of feed items of a certain type
-                console.log(feedItems);
-                res.json(feedItems);
-            });
-    } else if (requestedCount && requestedIndex) {
-        FeedItem.find({index: {$lt: requestedIndex}})
-            .limit(requestedCount)
-            .sort('-index')
-            .exec(function(err, feedItems) {
-                if (err) throw err;
-
-                // array of paginated generic feed items
-                console.log(feedItems);
-                res.json(feedItems);
-            });
-    } else if (requestedCount) {
-        FeedItem.find({})
-            .limit(requestedCount)
-            .sort('-index')
-            .exec(function(err, feedItems) {
-                if (err) throw err;
-
-                // array of specific number of generic feed items
-                console.log(feedItems);
-                res.json(feedItems);
-            });
-    } else if (requestedType) {
-        FeedItem.find({type: requestedType})
-            .sort('-index')
-            .exec(function(err, feedItems) {
-                if (err) throw err;
-
-                // array of feed items of specific type
-                console.log(feedItems);
-                res.json(feedItems);
-            });
-    } else {
-        FeedItem.find({})
-            .sort('-index')
-            .exec(function(err, feedItems) {
-                if (err) throw err;
-
-                // array of generic feed items
-                console.log(feedItems);
-                res.json(feedItems);
-            });
-    }
+    feedItemController.getFeedItems(req, function(err, feedItems) {
+        if(err) throw err;
+        res.json(feedItems);
+    });
 });
 
 var products = [];
