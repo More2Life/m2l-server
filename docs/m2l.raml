@@ -22,7 +22,9 @@ types:
       type:
         type: string
         enum: [Video, Event, Listing]
-
+      isActive:
+        type: boolean
+        description: Should be displayed in the Feed
   Video:
     type: FeedItem
     properties:

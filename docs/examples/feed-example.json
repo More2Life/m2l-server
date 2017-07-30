@@ -2,6 +2,7 @@
   {
     "_id" : "video1",
     "type" : "Video",
+    "isActive" : true,
     "title" : "Video One",
     "description" : "The first FeedItem, which is a video",
     "index" : 0,
@@ -13,6 +14,7 @@
   {
     "_id" : "event1",
     "type" : "Event",
+    "isActive" : true,
     "title" : "Event One",
     "description" : "The first FeedItem, which is an event",
     "index" : 1,
@@ -23,6 +25,7 @@
   {
     "_id" : "listing1",
     "type" : "Listing",
+    "isActive" : true,
     "title" : "Listing One",
     "description" : "This rad M2L shirt",
     "index" : 2,
@@ -31,5 +34,16 @@
       "_id" : "product1",
       "price" : 29.99
     }
+  },
+  {
+    "id" : "event2",
+    "type" : "Event",
+    "isActive" : false,
+    "title" : "Inactive Event",
+    "description" : "This event is not active. Someone send over the missionaries.",
+    "index" : 3,
+    "coordinates" : "33.425861,-111.8816297",
+    "address" : "602 N May, Mesa, AZ 85201",
+    "eventUrl" : "https://www.lds.org/liahona/1983/07/the-worth-of-one-a-home-teachers-guide-for-working-with-inactive-members?lang=eng"
   }
 ]
