@@ -51,65 +51,69 @@ router.get('/feedItems', function (req, res) {
     console.log('Requested Type: ' + requestedType);
 
     if (requestedType && requestedCount && requestedIndex) {
-        FeedItem.find({type: requestedType, index: {$gt: requestedIndex}})
+        FeedItem.find({type: requestedType, index: {$lt: requestedIndex}})
             .limit(requestedCount)
-            .sort('index')
+            .sort('-index')
             .exec(function(err, feedItems) {
                 if (err) throw err;
 
-                // array of feed items
+                // array of paginated feed items of a certain type
                 console.log(feedItems);
                 res.json(feedItems);
         });
     } else if (requestedType && requestedCount) {
-        FeedItem.find({type: requestedType, index: {$gte: 0}})
+        FeedItem.find({type: requestedType})
             .limit(requestedCount)
-            .sort('index')
+            .sort('-index')
             .exec(function(err, feedItems) {
                 if (err) throw err;
 
-                // array of feed items
+                // array of specific number of feed items of a certain type
                 console.log(feedItems);
                 res.json(feedItems);
             });
     } else if (requestedCount && requestedIndex) {
-        FeedItem.find({index: {$gt: requestedIndex}})
+        FeedItem.find({index: {$lt: requestedIndex}})
             .limit(requestedCount)
-            .sort('index')
+            .sort('-index')
             .exec(function(err, feedItems) {
                 if (err) throw err;
 
-                // array of feed items
+                // array of paginated generic feed items
                 console.log(feedItems);
                 res.json(feedItems);
             });
     } else if (requestedCount) {
-        FeedItem.find({index: {$gte: 0}})
+        FeedItem.find({})
             .limit(requestedCount)
-            .sort('index')
+            .sort('-index')
             .exec(function(err, feedItems) {
                 if (err) throw err;
 
-                // array of feed items
+                // array of specific number of generic feed items
                 console.log(feedItems);
                 res.json(feedItems);
             });
     } else if (requestedType) {
-        FeedItem.find({type: requestedType}, function(err, feedItems) {
-            if (err) throw err;
+        FeedItem.find({type: requestedType})
+            .sort('-index')
+            .exec(function(err, feedItems) {
+                if (err) throw err;
 
-            // array of feed items
-            console.log(feedItems);
-            res.json(feedItems);
-        });
+                // array of specific number of generic feed items
+                console.log(feedItems);
+                res.json(feedItems);
+            });
     } else {
-        FeedItem.find({}, function(err, feedItems) {
-            if (err) throw err;
+        FeedItem.find({})
+            .sort('-index')
+            .exec(function(err, feedItems) {
+                if (err) throw err;
 
-            // array of feed items
-            console.log(feedItems);
-            res.json(feedItems);
-        });
+                // array of specific number of generic feed items
+                console.log(feedItems);
+                res.json(feedItems);
+            });
     }
 });
 
