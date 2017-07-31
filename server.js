@@ -117,6 +117,11 @@ router.get('/feedItems', function (req, res) {
     }
 });
 
+app.post('/webhooks/shopify/products', function (req, res) {
+    console.log(req.body);
+    res.json(req.body);
+});
+
 // START THE SERVER
 // =============================================================================
 app.listen(port);
