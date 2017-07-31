@@ -118,6 +118,8 @@ router.get('/feedItems', function (req, res) {
 });
 
 var products = [];
+var moltinProducts = [];
+
 
 router.post('/webhooks/shopify/product', function (req, res) {
     console.log(req.body);
@@ -127,6 +129,16 @@ router.post('/webhooks/shopify/product', function (req, res) {
 router.get('/webhooks/shopify/products', function (req, res) {
     console.log(products);
     res.json(products);
+});
+
+router.post('/webhooks/moltin/product', function (req, res) {
+    console.log(req.body);
+    moltinProducts.push(req.body);
+});
+
+router.get('/webhooks/moltin/products', function (req, res) {
+    console.log(moltinProducts);
+    res.json(moltinProducts);
 });
 
 // START THE SERVER
