@@ -53,9 +53,16 @@ router.get('/feedItems', function (req, res) {
     });
 });
 
-app.post('/webhooks/shopify/products', function (req, res) {
+var products = [];
+
+router.post('/webhooks/shopify/product', function (req, res) {
     console.log(req.body);
-    res.json(req.body);
+    products.append(req.body);
+});
+
+router.get('/webhooks/shopify/products', function (req, res) {
+    console.log(products);
+    res.json(products);
 });
 
 // START THE SERVER
