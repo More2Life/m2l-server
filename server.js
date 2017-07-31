@@ -121,7 +121,7 @@ var products = [];
 
 router.post('/webhooks/shopify/product', function (req, res) {
     console.log(req.body);
-    products.append(req.body);
+    products.push(req.body);
 });
 
 router.get('/webhooks/shopify/products', function (req, res) {
