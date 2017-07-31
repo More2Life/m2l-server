@@ -53,28 +53,9 @@ router.get('/feedItems', function (req, res) {
     });
 });
 
-var products = [];
-var squareProducts = [];
-
-
-router.post('/webhooks/shopify/product', function (req, res) {
+app.post('/webhooks/shopify/products', function (req, res) {
     console.log(req.body);
-    products.push(req.body);
-});
-
-router.get('/webhooks/shopify/products', function (req, res) {
-    console.log(products);
-    res.json(products);
-});
-
-router.post('/webhooks/square/product', function (req, res) {
-    console.log(req.body);
-    squareProducts.push(req.body);
-});
-
-router.get('/webhooks/square/products', function (req, res) {
-    console.log(squareProducts);
-    res.json(squareProducts);
+    res.json(req.body);
 });
 
 // START THE SERVER
