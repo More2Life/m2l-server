@@ -53,16 +53,9 @@ router.get('/feedItems', function (req, res) {
     });
 });
 
-var products = [];
-
-router.post('/webhooks/shopify/product', function (req, res) {
+// Webhooks
+router.post('/webhooks/square/product', function (req, res) {
     console.log(req.body);
-    products.append(req.body);
-});
-
-router.get('/webhooks/shopify/products', function (req, res) {
-    console.log(products);
-    res.json(products);
 });
 
 // START THE SERVER
