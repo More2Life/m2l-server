@@ -54,7 +54,7 @@ router.get('/feedItems', function (req, res) {
 });
 
 // Webhooks
-router.post('/webhooks/square/product', function (req, res) {
+router.post('/webhooks/square', function (req, res) {
     console.log(req.body);
 });
 
