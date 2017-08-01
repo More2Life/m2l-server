@@ -18,7 +18,7 @@ var FeedItemController = {
         }
 
         if (requestedIndex) {
-            query = query.where('index').lt(requestedIndex);
+            query = query.where('index').lte(requestedIndex);
         }
 
         if (requestedCount) {
