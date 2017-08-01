@@ -3,9 +3,17 @@ var FeedItem = mongoose.model('feeditems');
 
 // Create event schema. Inherit FeedItem
 var eventSchema = new mongoose.Schema({
-    coordinates: String,
     address: String,
-    eventUrl: String
+    area: String,
+    multiLineAddress: [{type: String}],
+    latitude: String,
+    longitude: String,
+    venueName: String,
+    eventUrl: String,
+    resourceUri: String,
+    imageUrl: String,
+    startTime: String,
+    endTime: String
 });
 
 // discriminator used for document inheritance within the same collection
