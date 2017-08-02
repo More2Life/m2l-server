@@ -8,7 +8,7 @@ var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var database = require('./utilities/database');
+var database = require('./database/database');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -20,8 +20,14 @@ var port = process.env.PORT || 8080;        // set our port
 
 // MODELS
 // =============================================================================
-var FeedItem = mongoose.model('feeditems');
+var FeedItem = require('./models/feedItem').FeedItem;
+var Video = require('./models/video').Video;
+var Listing = require('./models/listing').Listing;
+var Event = require('./models/event').Event;
 
+// CONTROLLERS
+// =============================================================================
+var feedItemController = require ('./controllers/feedItemController').FeedItemController;
 
 
 // ROUTES FOR OUR API
@@ -40,12 +46,9 @@ app.use('/api', router);
 
 router.get('/feedItems', function (req, res) {
     console.log('GET Feed Items');
-    // get all the feedItems
-    FeedItem.find({}, function(err, feedItems) {
-        if (err) throw err;
 
-        // array of feed items
-        console.log(feedItems);
+    feedItemController.getFeedItems(req, function(err, feedItems) {
+        if(err) throw err;
         res.json(feedItems);
     });
 });
