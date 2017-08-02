@@ -53,9 +53,12 @@ router.get('/feedItems', function (req, res) {
     });
 });
 
-// Webhooks
+// WEBHOOK ENDPOINTS
+// =============================================================================
 router.post('/webhooks/square', function (req, res) {
+    console.log('POST from Square');
     console.log(req.body);
+    res.json({status:'success'});
 });
 
 // START THE SERVER
