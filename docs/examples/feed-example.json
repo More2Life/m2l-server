@@ -18,9 +18,20 @@
     "title" : "Event One",
     "description" : "The first FeedItem, which is an event",
     "index" : 1,
-    "coordinates" : "33.5609,-111.6734",
     "address" : "7314 E Minton Cir, Mesa, AZ 85207",
-    "eventUrl" : "https://www.eventbrite.com/e/kalani-sitake-more2life-foundation-luncheon-tickets-35192924986#"
+    "area" : "Mesa, AZ",
+    "multiLineAddress" : [
+      "7314 E Minton Cir",
+      "Mesa, AZ 85207"
+    ],
+    "latitude" : "33.5609",
+    "longitude" : "-111.6734",
+    "venueName" : "Todd's House",
+    "eventUrl" : "https://www.eventbrite.com/e/test-event-registration-36694259518",
+    "resourceUri" : "https://www.eventbriteapi.com/v3/events/36694259518/",
+    "imageUrl" : "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F33801220%2F216775133792%2F1%2Foriginal.jpg?s=3cfc1ec1828b790b438cd649fb9161fb",
+    "startTime" : "2017-09-10T19:00:00",
+    "endTime" : "2017-09-10T22:00:00"
   },
   {
     "_id" : "listing1",
@@ -36,14 +47,26 @@
     }
   },
   {
-    "id" : "event2",
+    "_id" : "event2",
     "type" : "event",
     "isActive" : false,
     "title" : "Inactive Event",
     "description" : "This event is not active. Someone send over the missionaries.",
     "index" : 3,
-    "coordinates" : "33.425861,-111.8816297",
-    "address" : "602 N May, Mesa, AZ 85201",
-    "eventUrl" : "https://www.lds.org/liahona/1983/07/the-worth-of-one-a-home-teachers-guide-for-working-with-inactive-members?lang=eng"
+    "address" : "602 N May, Unit 96, Mesa, AZ 85201",
+    "area" : "Mesa, AZ",
+    "multiLineAddress" : [
+      "602 N May",
+      "Unit 96",
+      "Mesa, AZ 85201"
+    ],
+    "latitude" : "33.425861",
+    "longitude" : "-111.8816297",
+    "venueName" : "Todd's Old House",
+    "eventUrl" : "https://www.eventbrite.com/e/kalani-sitake-more2life-foundation-luncheon-tickets-35192924986#",
+    "resourceUri" : "https://www.eventbriteapi.com/v3/events/35192924986/",
+    "imageUrl" : "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F33801220%2F216775133792%2F1%2Foriginal.jpg?s=3cfc1ec1828b790b438cd649fb9161fb",
+    "startTime" : "2017-09-10T19:00:00",
+    "endTime" : "2017-09-10T22:00:00"
   }
 ]

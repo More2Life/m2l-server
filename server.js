@@ -61,6 +61,12 @@ router.post('/webhooks/square', function (req, res) {
     res.json({status:'success'});
 });
 
+router.post('/webhooks/eventbrite', function (req, res) {
+    console.log('POST from Eventbrite');
+    console.log(req.body);
+    res.json({status:'success'});
+});
+
 // START THE SERVER
 // =============================================================================
 app.listen(port);
