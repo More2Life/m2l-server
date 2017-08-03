@@ -21,7 +21,7 @@ types:
         description: The position of the item in the feed. Used for sorting and paging
       type:
         type: string
-        enum: [Video, Event, Listing]
+        enum: [video, event, listing]
       isActive:
         type: boolean
         description: Should be displayed in the Feed
@@ -43,15 +43,39 @@ types:
   Event:
     type: FeedItem
     properties:
-      coordinates:
-        description: The GPS coordinates to show the event on a map
-        type: string
       address:
-        description: The street address of the location
         type: string
+        description: The printable, one-line street address of the location.
+      area:
+        type: string
+        description: The general area of the event, i.e., City, ST
+      multiLineAddress:
+        type: string[]
+        description: Individual lines of the address, for printing across multiple lines
+      latitude:
+        type: string
+        description: Latitude as String
+      longitude:
+        type: string
+        description: Longitude as String
+      venueName:
+        type: string
+        description: Name of the venue, i.e. Marriott Center
       eventUrl:
-        description: The Eventbrite URL
         type: string
+        description: URL for eventbrite.com web page
+      resourceUri:
+        type: string
+        description: URI for requesting this resource from Eventbrite API
+      imageUrl:
+        type: string
+        description: URL to the image to display for the event
+      startTime:
+        type: string
+        description: Start date & time in local time of the event. Sorry it's a string.
+      endTime:
+        type: string
+        description: End date & time in local time of the event. Sorry it's a string.
   Listing:
     type: FeedItem
     properties:

@@ -53,6 +53,12 @@ router.get('/feedItems', function (req, res) {
     });
 });
 
+router.post('/webhooks/eventbrite', function (req, res) {
+    console.log('POST from Eventbrite');
+    console.log(req.body);
+    res.json({status:'success'});
+});
+
 // START THE SERVER
 // =============================================================================
 app.listen(port);
