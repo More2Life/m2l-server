@@ -14,7 +14,7 @@
     },
     "SQUARE_SANDBOX_ACCESS_TOKEN": {
       "required": true
-    },
+    }
   },
   "formation": {
   },
