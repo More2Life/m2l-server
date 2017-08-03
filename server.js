@@ -59,7 +59,7 @@ router.get('/feedItems', function (req, res) {
 router.post('/webhooks/square', function (req, res) {
     console.log('POST from Square');
     console.log(req.body);
-    var eventType = parseInt(req.body.event_type);
+    var eventType = req.body.event_type;
     console.log('Event Type: ' + eventType);
 
     if (eventType == 'INVENTORY_UPDATED') {
