@@ -28,6 +28,7 @@ var Event = require('./models/event').Event;
 // CONTROLLERS
 // =============================================================================
 var feedItemController = require ('./controllers/feedItemController').FeedItemController;
+var listingController = require ('./controllers/listingController').EventController;
 
 
 // ROUTES FOR OUR API
@@ -58,6 +59,17 @@ router.get('/feedItems', function (req, res) {
 router.post('/webhooks/square', function (req, res) {
     console.log('POST from Square');
     console.log(req.body);
+    var eventType = parseInt(req.body.event_type);
+    console.log('Event Type: ' + eventType);
+
+    if (eventType == 'INVENTORY_UPDATED') {
+        listingController.updateListing(req, function(err, listing) {
+            if(err) throw err;
+            console.log("Listing Updated for entity ID: " + req.body.entity_id);
+        });
+    } else if (eventType == 'TEST_NOTIFICATION') {
+            console.log("TEST NOTIFICATION RECEIVED");
+    }
     res.json({status:'success'});
 });
 
