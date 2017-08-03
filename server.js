@@ -28,6 +28,7 @@ var Event = require('./models/event').Event;
 // CONTROLLERS
 // =============================================================================
 var feedItemController = require ('./controllers/feedItemController').FeedItemController;
+var eventController = require ('./controllers/eventController').EventController;
 
 
 // ROUTES FOR OUR API
@@ -54,9 +55,12 @@ router.get('/feedItems', function (req, res) {
 });
 
 router.post('/webhooks/eventbrite', function (req, res) {
-    console.log('POST from Eventbrite');
-    console.log(req.body);
-    res.json({status:'success'});
+    console.log('POST from Eventbrite', req.body);
+
+    eventController.handleEventbriteHook(req, function(err) {
+        if(err) throw err;
+        res.json({status:'success'});
+    });
 });
 
 // START THE SERVER
