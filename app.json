@@ -8,7 +8,13 @@
     },
     "EVENTBRITE_BEARER_TOKEN": {
       "required": true
-    }
+    },
+    "SQUARE_SANDBOX_APPLICATION_ID": {
+      "required": true
+    },
+    "SQUARE_SANDBOX_ACCESS_TOKEN": {
+      "required": true
+    },
   },
   "formation": {
   },

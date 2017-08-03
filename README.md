@@ -12,4 +12,6 @@ More2Life App Server
     ```
     heroku config:get MONGODB_URI_TEST -s  >> .env
     heroku config:get EVENTBRITE_BEARER_TOKEN -s  >> .env
+    heroku config:get SQUARE_SANDBOX_APPLICATION_ID -s  >> .env
+    heroku config:get SQUARE_SANDBOX_ACCESS_TOKEN -s  >> .env
 7. Build locally with `heroku local web`
