@@ -63,7 +63,7 @@ router.post('/webhooks/square', function (req, res) {
     console.log('Event Type: ' + eventType);
 
     if (eventType == 'INVENTORY_UPDATED') {
-        listingController.checkAndUpdateListing(req);
+        // TODO: handle notification
     } else if (eventType == 'TEST_NOTIFICATION') {
             console.log("TEST NOTIFICATION RECEIVED");
     }
