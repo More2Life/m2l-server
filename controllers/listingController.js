@@ -4,13 +4,14 @@ var request = require('request');
 const TOKEN = process.env.SQUARE_PERSONAL_ACCESS_TOKEN;
 var baseUrl = 'https://connect.squareup.com/v2/';
 
-var options = {
+
+var baseRequest = request.defaults({
     headers: {
         'Authorization': TOKEN,
         'Accept': 'application/json',
         'Content-Type': 'application/json',
     }
-};
+})
 
 var EventController = {
     updateListing : function (req) {
