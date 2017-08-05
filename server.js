@@ -54,6 +54,14 @@ router.get('/feedItems', function (req, res) {
     });
 });
 
+// WEBHOOK ENDPOINTS
+// =============================================================================
+router.post('/webhooks/square', function (req, res) {
+    console.log('POST from Square');
+    console.log(req.body);
+    res.json({status:'success'});
+});
+
 router.post('/webhooks/eventbrite', function (req, res) {
     console.log('POST from Eventbrite', req.body);
 
