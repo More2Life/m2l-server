@@ -1,11 +1,13 @@
 var mongoose = require('mongoose');
 var Listing = require('../models/listing').Listing;
 var request = require('request');
+var redisController = require('../database/redis.js').RedisController;
+var moment = require('moment');
 
 const TOKEN = process.env.SQUARE_PERSONAL_ACCESS_TOKEN;
-console.log('TOKEN: ' +TOKEN);
 var baseUrl = 'https://connect.squareup.com/v2/';
 var minute = 60000;
+var LAST_POLLED_AT_KEY = 'squareItemListLastPolledAt'
 
 
 var baseRequest = request.defaults({
@@ -13,26 +15,37 @@ var baseRequest = request.defaults({
         'Authorization': TOKEN,
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-    }
+    },
+    json: true
 })
 
 var ListingController = {
 
     getItemList: () => {
-        var url = baseUrl + 'catalog/list?types=ITEM';
-        baseRequest(url, function (error, response, body) {
-            console.log("Error: ", error);
-            console.log("Response: ", response);
-            console.log("Response Body: ", JSON.parse(body));
-            if (error) throw error;
-            var items = JSON.parse(body).objects;
-            console.log("FETCHED ITEMS LIST:");
-            console.log(items);
-            if (items) {
-                items.forEach(function (item, index) {
-                    ListingController.checkAndUpdateListing(item);
-                });
+        var postBody = {object_types : ["ITEM"]};
+        var searchTime = moment().toISOString();
+        console.log(searchTime);
+        redisController.getValueForKey(LAST_POLLED_AT_KEY, (lastPolledAt) => {
+            if (lastPolledAt) {
+                postBody.begin_time = lastPolledAt;
             }
+            var postUrl = baseUrl + 'catalog/search';
+            console.log(postUrl);
+            console.log(postBody);
+
+            baseRequest.post({url: postUrl, body: postBody}, function (error, response, body) {
+                if (error) console.log("Error: ", error);
+                if (error) throw error;
+                var items = body.objects;
+                console.log("FETCHED ITEMS LIST:");
+                console.log(items);
+                if (items) {
+                    items.forEach(function (item, index) {
+                        ListingController.checkAndUpdateListing(item);
+                    });
+                }
+                redisController.setKeyValue(LAST_POLLED_AT_KEY, searchTime)
+            });
         });
     },
 
@@ -88,7 +101,7 @@ var ListingController = {
         console.log(listing);
         listing.save(function (err) {
             if (err) {
-                console.error('ERROR SAVING LISTING:');
+                console.log('ERROR SAVING LISTING:');
                 console.log(listing)
             }
         });

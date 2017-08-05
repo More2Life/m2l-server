@@ -4,7 +4,9 @@
   "dependencies": {
     "body-parser": "~1.0.1",
     "express": "~4.0.0",
+    "moment": "^2.18.1",
     "mongoose": "^4.10.8",
+    "redis": "^2.7.1",
     "request": "^2.81.0"
   },
   "engines": {
