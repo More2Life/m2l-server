@@ -5,8 +5,9 @@ var FeedItem = mongoose.model('feeditems');
 var listingSchema = new mongoose.Schema({
     previewImageUrl: String,
     Product: {
-        _id: String,
-        price: Number
+        squareId: String,
+        previewImageUrl: String,
+        lastUpdatedAt: String
     }
 });
 
