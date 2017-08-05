@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Listing = require('../models/listing').Listing;
 var request = require('request');
 const TOKEN = process.env.SQUARE_PERSONAL_ACCESS_TOKEN;
+console.log('TOKEN: ' +TOKEN);
 var baseUrl = 'https://connect.squareup.com/v2/';
 
 
@@ -16,20 +17,21 @@ var baseRequest = request.defaults({
 var ListingController = {
 
     getItemList: () => {
-        var url = baseURL + 'catalog/list?types=ITEM';
+        var url = baseUrl + 'catalog/list?types=ITEM';
         baseRequest(url, function (error, response, body) {
-            console.log("Error", error);
-            console.log("Response", response);
-            console.log("Response Body", body);
+            // console.log("Error: ", error);
+            // console.log("Response: ", response);
+            console.log("Response Body: ", body);
             if (error) throw error;
             var items = body.objects;
             console.log("FETCHED ITEMS LIST:");
             console.log(items);
-
-            items.forEach(function (item, index) {
-                ListingController.checkAndUpdateListing(item);
-            });
-        })
+            if (items) {
+                items.forEach(function (item, index) {
+                    ListingController.checkAndUpdateListing(item);
+                });
+            }
+        });
     },
 
     checkAndUpdateListing: async (item) => {
