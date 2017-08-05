@@ -29,7 +29,7 @@ var ListingController = {
             items.forEach(function (item, index) {
                 ListingController.checkAndUpdateListing(item);
             });
-        });
+        })
     },
 
     checkAndUpdateListing: async (item) => {
