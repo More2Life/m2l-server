@@ -24,7 +24,7 @@ var ListingController = {
     getItemList: () => {
         redisController.getValueForKey(LAST_POLLED_AT_KEY, (lastPolledAt) => {
 
-            function searchItems(postUrl, postBody) => {
+            function searchItems(postUrl, postBody) {
                 baseRequest.post({url: postUrl, body: postBody}, function (error, response, body) {
                     if (error) console.log("Error: ", error);
                     if (error) throw error;
@@ -98,7 +98,7 @@ var ListingController = {
         listing.description = item.item_data.description;
         listing.isActive = !item.isDeleted;
         listing.previewImageUrl = item.item_data.image_url;
-        listing.lastUpdatedAt = lastUpdatedAt;
+        listing.lastUpdatedAt = item.updated_at;
 
         ListingController.saveListing(listing);
     },
