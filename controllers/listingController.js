@@ -24,7 +24,11 @@ var ListingController = {
     getItemList: () => {
         redisController.getValueForKey(LAST_POLLED_AT_KEY, (lastPolledAt) => {
 
-            function searchItems(postUrl, postBody) {
+            function searchItems(url, postBody, cursor) {
+                var postUrl = url;
+                if (cursor) {
+                    postUrl = postUrl + '?cursor=' + cursor;
+                }
                 baseRequest.post({url: postUrl, body: postBody}, function (error, response, body) {
                     if (error) console.log("Error: ", error);
                     if (error) throw error;
@@ -38,8 +42,7 @@ var ListingController = {
                     }
                     if (body.cursor) {
                         console.log('PAGINATE WITH CURSOR: ' + body.cursor);
-                        postUrl = postUrl + '?cursor=' + body.cursor;
-                        searchItems(postUrl, postBody);
+                        searchItems(url, postBody, body.cursor);
                     }
                 });
             }
