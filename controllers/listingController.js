@@ -22,30 +22,36 @@ var baseRequest = request.defaults({
 var ListingController = {
 
     getItemList: () => {
-        var postBody = {object_types : ["ITEM"]};
-        var searchTime = moment().toISOString();
-        console.log(searchTime);
         redisController.getValueForKey(LAST_POLLED_AT_KEY, (lastPolledAt) => {
+
+            function searchItems(postUrl, postBody) => {
+                baseRequest.post({url: postUrl, body: postBody}, function (error, response, body) {
+                    if (error) console.log("Error: ", error);
+                    if (error) throw error;
+                    var items = body.objects;
+                    console.log("FETCHED ITEMS LIST:");
+                    console.log(items);
+                    if (items) {
+                        items.forEach(function (item, index) {
+                            ListingController.checkAndUpdateListing(item);
+                        });
+                    }
+                    if (body.cursor) {
+                        console.log('PAGINATE WITH CURSOR: ' + body.cursor);
+                        postUrl = postUrl + '?cursor=' + body.cursor;
+                        searchItems(postUrl, postBody);
+                    }
+                });
+            }
+            var postBody = {object_types : ["ITEM"]};
+            var searchTime = moment().toISOString();
             if (lastPolledAt) {
                 postBody.begin_time = lastPolledAt;
             }
             var postUrl = baseUrl + 'catalog/search';
-            console.log(postUrl);
-            console.log(postBody);
 
-            baseRequest.post({url: postUrl, body: postBody}, function (error, response, body) {
-                if (error) console.log("Error: ", error);
-                if (error) throw error;
-                var items = body.objects;
-                console.log("FETCHED ITEMS LIST:");
-                console.log(items);
-                if (items) {
-                    items.forEach(function (item, index) {
-                        ListingController.checkAndUpdateListing(item);
-                    });
-                }
-                redisController.setKeyValue(LAST_POLLED_AT_KEY, searchTime)
-            });
+            searchItems(postUrl, postBody);
+            redisController.setKeyValue(LAST_POLLED_AT_KEY, searchTime)
         });
     },
 
