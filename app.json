@@ -8,6 +8,9 @@
     },
     "EVENTBRITE_BEARER_TOKEN": {
       "required": true
+    },
+    "SQUARE_PERSONAL_ACCESS_TOKEN": {
+      "required": true
     }
   },
   "formation": {
