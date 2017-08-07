@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var Event = require('../models/Event').Event;
+var Event = require('../models/event').Event;
 var request = require('request');
 const TOKEN = process.env.EVENTBRITE_BEARER_TOKEN;
 var VENUEURI = "https://www.eventbriteapi.com/v3/venues/"
