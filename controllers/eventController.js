@@ -20,7 +20,7 @@ function createEvent(eventBody) {
             isActive: (eventBody.status === 'live') ? true : false,
             eventUrl: eventBody.url,
             resourceUri: eventBody.resource_uri,
-            imageUrl: eventBody.logo.original.url,
+            imageUrl: (eventBody.logo) ? eventBody.logo.original.url : null,
             startTime: eventBody.start.local,
             endTime: eventBody.end.local
         }
