@@ -77,9 +77,9 @@ router.post('/webhooks/eventbrite/create', function (req, res) {
 
     var responseBody = "Thanks, Eventbrite. We'll take care of it from here.";
 
-    if (req.config.action == 'event.created') {
+    if (req.body.config.action == 'event.created') {
         eventController.createEvent(req.body);
-    } else if (req.config.action == 'test') {
+    } else if (req.body.config.action == 'test') {
         responseBody = "Test notification. Good job; it works.";
         console.log(responseBody);
     }
@@ -92,9 +92,9 @@ router.post('/webhooks/eventbrite/update', function (req, res) {
 
     var responseBody = "Thanks, Eventbrite. We'll take care of it from here.";
 
-    if (req.config.action == 'event.updated') {
+    if (req.body.config.action == 'event.updated') {
         eventController.updateEvent(req.body);
-    } else if (req.config.action == 'test') {
+    } else if (req.body.config.action == 'test') {
         responseBody = "Test notification. Good job; it works.";
         console.log(responseBody);
     }
@@ -107,10 +107,10 @@ router.post('/webhooks/eventbrite/publish', function (req, res) {
 
     var responseBody = "Thanks, Eventbrite. We'll take care of it from here.";
 
-    if (req.config.action == 'event.published'
-            || req.config.action == 'event.unpublished') {
+    if (req.body.config.action == 'event.published'
+            || req.body.config.action == 'event.unpublished') {
         eventController.publishEvent(req.body);
-    } else if (req.config.action == 'test') {
+    } else if (req.body.config.action == 'test') {
         responseBody = "Test notification. Good job; it works.";
         console.log(responseBody);
     }
@@ -123,9 +123,9 @@ router.post('/webhooks/eventbrite/venue', function (req, res) {
 
     var responseBody = "Thanks, Eventbrite. We'll take care of it from here.";
 
-    if (req.config.action == 'venue.updated') {
+    if (req.body.config.action == 'venue.updated') {
         eventController.venueChange(req.body);
-    } else if (req.config.action == 'test') {
+    } else if (req.body.config.action == 'test') {
         responseBody = "Test notification. Good job; it works.";
         console.log(responseBody);
     }
