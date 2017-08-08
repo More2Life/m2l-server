@@ -16,7 +16,7 @@ function createEvent(eventBody, callback) {
     console.log("Venue URI", uri);
     eventbriteRequest(uri, function(error, response, body) {
         console.log("Venue Error", error);
-        console.log("Venue Response", response);
+        console.log("Venue Response", {statusMessage: response.statusMessage, statusCode: response.statusCode});
         console.log("Venue body", body);
         var status = (eventBody.status === 'live') ? true : false;
         var event = new Event({
@@ -53,10 +53,14 @@ var EventController = {
             console.log("Equals event.created");
             eventbriteRequest(url, function(error, response, body) {
                 console.log("Event Error", error);
-                console.log("Event Response", response);
+                console.log("Event Response", {statusMessage: response.statusMessage, statusCode: response.statusCode});
                 console.log("Event Body", body);
                 if (error) throw error;
-                createEvent(body, callback);
+                if (response.statusCode == 200) {
+                    createEvent(body, callback);
+                } else {
+                    callback("Error receiving Event from Eventbrite");
+                }
             });
         }
         else if (action === 'event.published') {
@@ -68,8 +72,11 @@ var EventController = {
         else if (action === 'event.updated') {
             console.log("Updating event");
         }
+        else if (action === 'venue.updated') {
+            console.log("Updating venue");
+        }
         else {
-            return;
+            callback("Action not recognized");
         }
     }
 }

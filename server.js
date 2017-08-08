@@ -72,11 +72,12 @@ router.post('/webhooks/square', function (req, res) {
 });
 
 router.post('/webhooks/eventbrite', function (req, res) {
-    console.log('POST from Eventbrite', req.body);
+    console.log('POST from Eventbrite');
+    console.log(req.body);
 
-    eventController.handleEventbriteHook(req, function(err) {
-        if(err) throw err;
-        res.json({status:'success'});
+    eventController.handleEventbriteHook(req.body, function(msg) {
+        // if(err) throw err;
+        res.json(msg);
     });
 });
 
