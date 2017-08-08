@@ -11,77 +11,73 @@ var eventbriteRequest = request.defaults({
     json: true
 })
 
-function createEvent(eventBody, callback) {
-    var uri = VENUEURI.concat(eventBody.venue_id);
-    console.log("Venue URI", uri);
-    eventbriteRequest(uri, function(error, response, body) {
-        console.log("Venue Error", error);
-        console.log("Venue Response", {statusMessage: response.statusMessage, statusCode: response.statusCode});
-        console.log("Venue body", body);
-        var status = (eventBody.status === 'live') ? true : false;
-        var event = new Event({
+function createEvent(eventBody) {
+    var createEventAndSave = function(eventBody, venueBody) {
+        var eventDoc = {
             title: eventBody.name.text,
             description: eventBody.description.text,
             index: 0,
-            isActive: status,
+            isActive: (eventBody.status === 'live') ? true : false,
             eventUrl: eventBody.url,
             resourceUri: eventBody.resource_uri,
             imageUrl: eventBody.logo.original.url,
             startTime: eventBody.start.local,
-            endTime: eventBody.end.local,
-            address: body.address.localized_address_display,
-            area: body.address.localized_area_display,
-            multiLineAddress: body.address.localized_multi_line_address_display,
-            latitude: body.address.latitude,
-            longitude: body.address.longitude,
-            venueName: body.name
+            endTime: eventBody.end.local
+        }
+        if (venueBody) {
+            eventDoc.address = venueBody.address.localized_address_display;
+            eventDoc.area = venueBody.address.localized_area_display;
+            eventDoc.multiLineAddress = venueBody.address.localized_multi_line_address_display;
+            eventDoc.latitude = venueBody.address.latitude;
+            eventDoc.longitude = venueBody.address.longitude;
+            eventDoc.venueName = venueBody.name;
+        }
+        var event = new Event(eventDoc);
+        console.log("Event to be saved: ");
+        console.log(event);
+        event.save(function (err) {
+            if (err) {
+                console.log('ERROR SAVING EVENT:');
+                console.log(event);
+            }
         });
-        console.log("Event", event);
-        event.save(callback);
-    });
+    };
+
+    var createWithVenue = function(eventBody) {
+        var uri = VENUEURI.concat(eventBody.venue_id);
+        console.log("Venue URI", uri);
+        eventbriteRequest(uri, function(error, response, body) {
+            console.log("Venue Error", error);
+            console.log("Venue Response", {statusMessage: response.statusMessage, statusCode: response.statusCode});
+            console.log("Venue body", body);
+            createEventAndSave(eventBody, body);
+        });
+    };
+
+    if (eventBody.venue_id) {
+        createWithVenue(eventBody);
+    } else {
+        createEventAndSave(eventBody);
+    }
 }
 
 var EventController = {
 
-    handleEventbriteHook: function(req, callback) {
-        var action = req.config.action;
+    createEvent: function(req) {
         var url = req.api_url;
-        console.log("Eventbrite action", action);
         console.log("Eventbrite url", url);
+        eventbriteRequest(url, function(error, response, body) {
+            console.log("Event Error", error);
+            console.log("Event Response", {statusMessage: response.statusMessage, statusCode: response.statusCode});
+            console.log("Event Body", body);
+            if (error) throw error;
 
-        if (action === 'event.created') {
-            console.log("Equals event.created");
-            eventbriteRequest(url, function(error, response, body) {
-                console.log("Event Error", error);
-                console.log("Event Response", {statusMessage: response.statusMessage, statusCode: response.statusCode});
-                console.log("Event Body", body);
-                if (error) throw error;
-                if (response.statusCode == 200) {
-                    createEvent(body, callback);
-                } else {
-                    callback("Error receiving Event from Eventbrite");
-                }
-            });
-        }
-        else if (action === 'event.published') {
-            console.log("Marking event published");
-            callback("Success");
-        }
-        else if (action === 'event.unpublished') {
-            console.log("Marking event unpublished");
-            callback("Success");
-        }
-        else if (action === 'event.updated') {
-            console.log("Updating event");
-            callback("success");
-        }
-        else if (action === 'venue.updated') {
-            console.log("Updating venue");
-            callback("success");
-        }
-        else {
-            callback("Action not recognized");
-        }
+            if (response.statusCode == 200) {
+                createEvent(body);
+            } else {
+                console.log("Error receiving Event from Eventbrite");
+            }
+        });
     }
 }
 

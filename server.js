@@ -71,14 +71,65 @@ router.post('/webhooks/square', function (req, res) {
     res.json({status:'success'});
 });
 
-router.post('/webhooks/eventbrite', function (req, res) {
-    console.log('POST from Eventbrite');
+router.post('/webhooks/eventbrite/create', function (req, res) {
+    console.log('POST on /eventbrite/create');
     console.log(req.body);
 
-    eventController.handleEventbriteHook(req.body, function(msg) {
-        // if(err) throw err;
-        res.json(msg);
-    });
+    var responseBody = "Thanks, Eventbrite. We'll take care of it from here.";
+
+    if (req.config.action == 'event.created') {
+        eventController.createEvent(req.body);
+    } else if (req.config.action == 'test') {
+        responseBody = "Test notification. Good job; it works.";
+        console.log(responseBody);
+    }
+    res.json(responseBody);
+});
+
+router.post('/webhooks/eventbrite/update', function (req, res) {
+    console.log("POST on /eventbrite/update");
+    console.log(req.body);
+
+    var responseBody = "Thanks, Eventbrite. We'll take care of it from here.";
+
+    if (req.config.action == 'event.updated') {
+        eventController.updateEvent(req.body);
+    } else if (req.config.action == 'test') {
+        responseBody = "Test notification. Good job; it works.";
+        console.log(responseBody);
+    }
+    res.json(responseBody);
+});
+
+router.post('/webhooks/eventbrite/publish', function (req, res) {
+    console.log("POST on /eventbrite/publish");
+    console.log(req.body);
+
+    var responseBody = "Thanks, Eventbrite. We'll take care of it from here.";
+
+    if (req.config.action == 'event.published'
+            || req.config.action == 'event.unpublished') {
+        eventController.publishEvent(req.body);
+    } else if (req.config.action == 'test') {
+        responseBody = "Test notification. Good job; it works.";
+        console.log(responseBody);
+    }
+    res.json(responseBody);
+});
+
+router.post('/webhooks/eventbrite/venue', function (req, res) {
+    console.log("POST on /eventbrite/venue");
+    console.log(req.body);
+
+    var responseBody = "Thanks, Eventbrite. We'll take care of it from here.";
+
+    if (req.config.action == 'venue.updated') {
+        eventController.venueChange(req.body);
+    } else if (req.config.action == 'test') {
+        responseBody = "Test notification. Good job; it works.";
+        console.log(responseBody);
+    }
+    res.json(responseBody);
 });
 
 // START THE SERVER
