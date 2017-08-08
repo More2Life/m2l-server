@@ -65,15 +65,19 @@ var EventController = {
         }
         else if (action === 'event.published') {
             console.log("Marking event published");
+            callback("Success");
         }
         else if (action === 'event.unpublished') {
             console.log("Marking event unpublished");
+            callback("Success");
         }
         else if (action === 'event.updated') {
             console.log("Updating event");
+            callback("success");
         }
         else if (action === 'venue.updated') {
             console.log("Updating venue");
+            callback("success");
         }
         else {
             callback("Action not recognized");
