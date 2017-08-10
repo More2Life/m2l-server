@@ -9,6 +9,7 @@ var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var database = require('./database/database');
+var createError = require('http-errors');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -71,22 +72,25 @@ router.post('/webhooks/square', function (req, res) {
     res.json({status:'success'});
 });
 
-router.post('/webhooks/eventbrite/create', function (req, res) {
+router.post('/webhooks/eventbrite/create', function (req, res, next) {
     console.log('POST on /eventbrite/create');
     console.log(req.body);
 
-    var responseBody = "Thanks, Eventbrite. We'll take care of it from here.";
-
-    if (req.body.config.action == 'event.created') {
-        eventController.createEvent(req.body);
-    } else if (req.body.config.action == 'test') {
-        responseBody = "Test notification. Good job; it works.";
-        console.log(responseBody);
+    if (req.body.config.action == 'test') {
+        res.json("Test notification. Good job; it works.");
+    } else if (req.body.config.action == 'event.created') {
+        eventController.createEvent(req.body.api_url, function(err) {
+            if (err) {
+                return next(err);
+            }
+            res.json("Thanks, Eventbrite. We'll take care of it from here.");
+        });
+    } else {
+        res.json("That's not event.created but thanks anyway.");
     }
-    res.json(responseBody);
 });
 
-router.post('/webhooks/eventbrite/update', function (req, res) {
+router.post('/webhooks/eventbrite/update', function (req, res, next) {
     console.log("POST on /eventbrite/update");
     console.log(req.body);
 
@@ -101,7 +105,7 @@ router.post('/webhooks/eventbrite/update', function (req, res) {
     res.json(responseBody);
 });
 
-router.post('/webhooks/eventbrite/publish', function (req, res) {
+router.post('/webhooks/eventbrite/publish', function (req, res, next) {
     console.log("POST on /eventbrite/publish");
     console.log(req.body);
 
@@ -117,7 +121,7 @@ router.post('/webhooks/eventbrite/publish', function (req, res) {
     res.json(responseBody);
 });
 
-router.post('/webhooks/eventbrite/venue', function (req, res) {
+router.post('/webhooks/eventbrite/venue', function (req, res, next) {
     console.log("POST on /eventbrite/venue");
     console.log(req.body);
 

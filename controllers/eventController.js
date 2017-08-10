@@ -1,8 +1,10 @@
 var mongoose = require('mongoose');
 var Event = require('../models/event').Event;
 var request = require('request');
+var createError = require('http-errors');
+
 const TOKEN = process.env.EVENTBRITE_BEARER_TOKEN;
-var VENUEURI = "https://www.eventbriteapi.com/v3/venues/"
+const VENUEURI = "https://www.eventbriteapi.com/v3/venues/"
 
 var eventbriteRequest = request.defaults({
     headers: {
@@ -11,7 +13,7 @@ var eventbriteRequest = request.defaults({
     json: true
 })
 
-function createEvent(eventBody) {
+function createEvent(eventBody, endRequest) {
     var createEventAndSave = function(eventBody, venueBody) {
         var eventDoc = {
             title: eventBody.name.text,
@@ -40,10 +42,11 @@ function createEvent(eventBody) {
                 console.log('ERROR SAVING EVENT:');
                 console.log(event);
             }
+            endRequest();
         });
     };
 
-    var createWithVenue = function(eventBody) {
+    var getVenueDetails = function(eventBody) {
         var uri = VENUEURI.concat(eventBody.venue_id);
         console.log("Venue URI", uri);
         eventbriteRequest(uri, function(error, response, body) {
@@ -54,28 +57,26 @@ function createEvent(eventBody) {
         });
     };
 
-    if (eventBody.venue_id) {
-        createWithVenue(eventBody);
+    if (!body.venue_id) {
+        endRequest(createError(412, 'Event doesn\'t have required details.'));
     } else {
-        createEventAndSave(eventBody);
+        getVenueDetails(eventBody);
     }
 }
 
 var EventController = {
 
-    createEvent: function(req) {
-        var url = req.api_url;
+    createEvent: function(url, endRequest) {
         console.log("Eventbrite url", url);
         eventbriteRequest(url, function(error, response, body) {
             console.log("Event Error", error);
             console.log("Event Response", {statusMessage: response.statusMessage, statusCode: response.statusCode});
             console.log("Event Body", body);
-            if (error) throw error;
-
-            if (response.statusCode == 200) {
-                createEvent(body);
-            } else {
+            if (error || response.statusCode != 200) {
                 console.log("Error receiving Event from Eventbrite");
+                endRequest(error);
+            } else {
+                createEvent(body, endRequest);
             }
         });
     }
