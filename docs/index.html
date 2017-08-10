@@ -166,10 +166,11 @@
       .resource-modal li > ul {
         margin-bottom: 1em;
       }
-    </style></head><body data-spy="scroll" data-target="#sidebar"><div class="container"><div class="row"><div class="col-md-9" role="main"><div class="page-header"><h1>More2Life API API documentation</h1><p>https://m2l-server.herokuapp.com/api</p></div><div class="panel panel-default"><div class="panel-heading"><h3 id="feeditems" class="panel-title">Feed</h3></div><div class="panel-body"><div class="top-resource-description"><p>Get a feed of content</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_feeditems"><span class="parent"></span>/feedItems</a> <span class="methods"><a href="#feeditems_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_feeditems" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#feeditems_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="feeditems_get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/feedItems</h4></div><div class="modal-body"><ul class="nav nav-tabs"><li class="active"><a href="#feeditems_get_request" data-toggle="tab">Request</a></li><li><a href="#feeditems_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="feeditems_get_request"><h3>Headers</h3><ul><li><strong>Accept-Language</strong>: <em>required (string)</em><p>The language the application is running in. Titles, descriptions, and any other user facing string should come down from the server translated in that language.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>count</strong>: <em>(integer)</em></li><li><strong>index</strong>: <em>(integer)</em></li><li><strong>type</strong>: <em>(one of Video, Event, Listing)</em><p>Used to request feed items of only one type</p></li></ul></div><div class="tab-pane" id="feeditems_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: array of FeedItem</p><p><strong>Items</strong>: FeedItem</p><div class="items"><ul><li><strong>_id</strong>: <em>required (string)</em><p>The unique identifier of the item</p></li><li><strong>title</strong>: <em>required (string)</em><p>The title / name of the item</p></li><li><strong>description</strong>: <em>required (string)</em><p>The description of the content in the item</p></li><li><strong>index</strong>: <em>required (integer)</em><p>The position of the item in the feed. Used for sorting and paging</p></li><li><strong>type</strong>: <em>required (one of Video, Event, Listing)</em></li></ul></div><p><strong>Example</strong>:</p><div class="examples"><pre><code>[
+    </style></head><body data-spy="scroll" data-target="#sidebar"><div class="container"><div class="row"><div class="col-md-9" role="main"><div class="page-header"><h1>More2Life API API documentation</h1><p>https://m2l-server.herokuapp.com/api</p></div><div class="panel panel-default"><div class="panel-heading"><h3 id="feeditems" class="panel-title">Feed</h3></div><div class="panel-body"><div class="top-resource-description"><p>Get a feed of content</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_feeditems"><span class="parent"></span>/feedItems</a> <span class="methods"><a href="#feeditems_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_feeditems" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#feeditems_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="feeditems_get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/feedItems</h4></div><div class="modal-body"><ul class="nav nav-tabs"><li class="active"><a href="#feeditems_get_request" data-toggle="tab">Request</a></li><li><a href="#feeditems_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="feeditems_get_request"><h3>Headers</h3><ul><li><strong>Accept-Language</strong>: <em>required (string)</em><p>The language the application is running in. Titles, descriptions, and any other user facing string should come down from the server translated in that language.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>count</strong>: <em>(integer)</em></li><li><strong>index</strong>: <em>(integer)</em></li><li><strong>type</strong>: <em>(one of video, event, listing)</em><p>Used to request feed items of only one type</p></li></ul></div><div class="tab-pane" id="feeditems_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: array of FeedItem</p><p><strong>Items</strong>: FeedItem</p><div class="items"><ul><li><strong>_id</strong>: <em>required (string)</em><p>The unique identifier of the item</p></li><li><strong>title</strong>: <em>required (string)</em><p>The title / name of the item</p></li><li><strong>description</strong>: <em>required (string)</em><p>The description of the content in the item</p></li><li><strong>index</strong>: <em>required (integer)</em><p>The position of the item in the feed. Used for sorting and paging</p></li><li><strong>type</strong>: <em>required (one of video, event, listing)</em></li><li><strong>isActive</strong>: <em>required (boolean)</em><p>Should be displayed in the Feed</p></li></ul></div><p><strong>Example</strong>:</p><div class="examples"><pre><code>[
   {
     "_id" : "video1",
-    "type" : "Video",
+    "type" : "video",
+    "isActive" : true,
     "title" : "Video One",
     "description" : "The first FeedItem, which is a video",
     "index" : 0,
@@ -180,17 +181,30 @@
   },
   {
     "_id" : "event1",
-    "type" : "Event",
+    "type" : "event",
+    "isActive" : true,
     "title" : "Event One",
     "description" : "The first FeedItem, which is an event",
     "index" : 1,
-    "coordinates" : "33.5609,-111.6734",
     "address" : "7314 E Minton Cir, Mesa, AZ 85207",
-    "eventUrl" : "https://www.eventbrite.com/e/kalani-sitake-more2life-foundation-luncheon-tickets-35192924986#"
+    "area" : "Mesa, AZ",
+    "multiLineAddress" : [
+      "7314 E Minton Cir",
+      "Mesa, AZ 85207"
+    ],
+    "latitude" : "33.5609",
+    "longitude" : "-111.6734",
+    "venueName" : "Todd&#39;s House",
+    "eventUrl" : "https://www.eventbrite.com/e/test-event-registration-36694259518",
+    "resourceUri" : "https://www.eventbriteapi.com/v3/events/36694259518/",
+    "imageUrl" : "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F33801220%2F216775133792%2F1%2Foriginal.jpg?s=3cfc1ec1828b790b438cd649fb9161fb",
+    "startTime" : "2017-09-10T19:00:00",
+    "endTime" : "2017-09-10T22:00:00"
   },
   {
     "_id" : "listing1",
-    "type" : "Listing",
+    "type" : "listing",
+    "isActive" : true,
     "title" : "Listing One",
     "description" : "This rad M2L shirt",
     "index" : 2,
@@ -199,6 +213,29 @@
       "_id" : "product1",
       "price" : 29.99
     }
+  },
+  {
+    "_id" : "event2",
+    "type" : "event",
+    "isActive" : false,
+    "title" : "Inactive Event",
+    "description" : "This event is not active. Someone send over the missionaries.",
+    "index" : 3,
+    "address" : "602 N May, Unit 96, Mesa, AZ 85201",
+    "area" : "Mesa, AZ",
+    "multiLineAddress" : [
+      "602 N May",
+      "Unit 96",
+      "Mesa, AZ 85201"
+    ],
+    "latitude" : "33.425861",
+    "longitude" : "-111.8816297",
+    "venueName" : "Todd&#39;s Old House",
+    "eventUrl" : "https://www.eventbrite.com/e/kalani-sitake-more2life-foundation-luncheon-tickets-35192924986#",
+    "resourceUri" : "https://www.eventbriteapi.com/v3/events/35192924986/",
+    "imageUrl" : "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F33801220%2F216775133792%2F1%2Foriginal.jpg?s=3cfc1ec1828b790b438cd649fb9161fb",
+    "startTime" : "2017-09-10T19:00:00",
+    "endTime" : "2017-09-10T22:00:00"
   }
 ]
 </code></pre></div></div></div></div></div></div></div></div></div></div></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#feeditems">Feed</a></li></ul></div></div></div></div></body></html>
