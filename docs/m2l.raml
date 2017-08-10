@@ -79,23 +79,15 @@ types:
   Listing:
     type: FeedItem
     properties:
-      Product:
-        type: Product
-        description: The product featured in the feed Listing
       previewImageUrl:
         type: string
         description: The url to the image for the product to show as a preview
-  Product:
-    description: A product to be sold in the store
-    properties:
-      _id:
+      squareId:
         type: string
-        description: The unique identifier of the product
-      price:
-        type: number
-        format: float
-        description: The price of the item
-
+        description: The ID of the item on Square
+      lastUpdatedAt:
+        type: string
+        description: The date the item was last updated on Square
 /feedItems:
   description: Get a feed of content
   displayName: Feed
