@@ -57,7 +57,7 @@ function createEvent(eventBody, endRequest) {
         });
     };
 
-    if (!body.venue_id) {
+    if (!eventBody.venue_id) {
         endRequest(createError(412, 'Event doesn\'t have required details.'));
     } else {
         getVenueDetails(eventBody);
