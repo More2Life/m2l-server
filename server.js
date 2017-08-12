@@ -108,37 +108,6 @@ router.post('/webhooks/eventbrite/update', function (req, res, next) {
     }
 });
 
-router.post('/webhooks/eventbrite/publish', function (req, res, next) {
-    console.log("POST on /eventbrite/publish");
-    console.log(req.body);
-
-    var responseBody = "Thanks, Eventbrite. We'll take care of it from here.";
-
-    if (req.body.config.action == 'event.published'
-            || req.body.config.action == 'event.unpublished') {
-        eventController.publishEvent(req.body);
-    } else if (req.body.config.action == 'test') {
-        responseBody = "Test notification. Good job; it works.";
-        console.log(responseBody);
-    }
-    res.json(responseBody);
-});
-
-router.post('/webhooks/eventbrite/venue', function (req, res, next) {
-    console.log("POST on /eventbrite/venue");
-    console.log(req.body);
-
-    var responseBody = "Thanks, Eventbrite. We'll take care of it from here.";
-
-    if (req.body.config.action == 'venue.updated') {
-        eventController.venueChange(req.body);
-    } else if (req.body.config.action == 'test') {
-        responseBody = "Test notification. Good job; it works.";
-        console.log(responseBody);
-    }
-    res.json(responseBody);
-});
-
 // START THE SERVER
 // =============================================================================
 app.listen(port);
