@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var FeedItem = mongoose.model('feeditems');
+// var uniqueValidator = require('mongoose-unique-validator');
 
 // Create event schema. Inherit FeedItem
 var eventSchema = new mongoose.Schema({
@@ -11,10 +12,13 @@ var eventSchema = new mongoose.Schema({
     venueName: String,
     eventUrl: String,
     resourceUri: String,
+    // resourceUri: { type: String, required: true unique: true },
     imageUrl: String,
     startTime: String,
-    endTime: String
+    endTime: String,
+    venueId: String
 });
+// eventSchema.plugin(uniqueValidator);
 
 // discriminator used for document inheritance within the same collection
 // http://thecodebarbarian.com/2015/07/24/guide-to-mongoose-discriminators
