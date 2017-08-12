@@ -18,7 +18,7 @@ function createEvent(eventBody, endRequest) {
     console.log("Venue URI", uri);
     eventbriteRequest(uri, function(error, response, venueBody) {
         console.log("Venue Response", {statusMessage: response.statusMessage, statusCode: response.statusCode});
-        console.log("Venue body", body);
+        console.log("Venue body", venueBody);
 
         if (error || response.statusCode != 200) {
             console.log("Error receiving Venue from Eventbrite", error);
@@ -39,7 +39,8 @@ function createEvent(eventBody, endRequest) {
                 multiLineAddress: venueBody.address.localized_multi_line_address_display,
                 latitude: venueBody.address.latitude,
                 longitude: venueBody.address.longitude,
-                venueName: venueBody.name
+                venueName: venueBody.name,
+                venueId: venueBody.id
             }
             var event = new Event(eventDoc);
             console.log("Event to be saved: ");
@@ -56,8 +57,18 @@ function createEvent(eventBody, endRequest) {
 }
 
 function updateEvent(eventBody, endRequest) {
+    var save = function(eventToSave) {
+        eventToSave.save(function (err) {
+            if (err) {
+                console.log('ERROR SAVING EVENT:');
+                console.log(ev);
+            }
+            endRequest();
+        })
+    }
+
     Event.findOne({resourceUri: eventBody.resource_uri}, function(err, ev){
-        if (err) throw err; // if err, explode node
+        if (err) throw err; // if err, explode node)
 
         if (ev)  { // we have this event in our DB; update it
             ev.title = eventBody.name.text;
@@ -67,13 +78,29 @@ function updateEvent(eventBody, endRequest) {
             ev.imageUrl = (eventBody.logo) ? eventBody.logo.original.url : null;
             ev.startTime = eventBody.start.local;
             ev.endTime = eventBody.end.local;
-            ev.save(function (err) {
-                if (err) {
-                    console.log('ERROR SAVING EVENT:');
-                    console.log(ev);
-                }
-                endRequest();
-            });
+
+            if (ev.venueId != eventBody.venue_id) { // if the venue changed, we should fetch it again
+                var uri = VENUEURI.concat(eventBody.venue_id);
+                eventbriteRequest(uri, function(error, response, venueBody) {
+                    console.log("Venue Response", {statusMessage: response.statusMessage, statusCode: response.statusCode});
+                    console.log("Venue body", venueBody);
+                    if (error || response.statusCode != 200) {
+                        console.log("Error receiving Venue from Eventbrite", error);
+                        endRequest(createError(412, "Your venue isn't available; send another hook later"));
+                    } else {
+                        ev.address = venueBody.address.localized_address_display;
+                        ev.area = venueBody.address.localized_area_display;
+                        ev.multiLineAddress = venueBody.address.localized_multi_line_address_display;
+                        ev.latitude = venueBody.address.latitude;
+                        ev.longitude = venueBody.address.longitude;
+                        ev.venueName = venueBody.name;
+                        ev.venueId = venueBody.id;
+                        save(ev);
+                    }
+                });
+            } else { // venue did not change
+                save(ev);
+            }
         } else if (eventBody.venue_id) { // Don't have this event already; create one if we have a venue
                 createEvent(eventBody, endRequest);
         } else { // don't have this event, and it also didn't come with venue, so do nothing
@@ -116,4 +143,3 @@ var EventController = {
 }
 
 exports.EventController = EventController;
-//i just want another heroku build

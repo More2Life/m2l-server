@@ -14,7 +14,8 @@ var eventSchema = new mongoose.Schema({
     resourceUri: { type: String, required: true, unique: true },
     imageUrl: String,
     startTime: String,
-    endTime: String
+    endTime: String,
+    venueId: String
 });
 eventSchema.plugin(uniqueValidator);
 
