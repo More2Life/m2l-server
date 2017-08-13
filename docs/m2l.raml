@@ -1,5 +1,5 @@
 #%RAML 1.0
-title: More2Life API
+title: More2Life
 baseUri: https://m2l-server.herokuapp.com/api
 mediaType: application/json
 
@@ -127,8 +127,22 @@ types:
 
 /webhooks/eventbrite:
   /create:
-    description: POST an event.created webhook from Eventbrite
+    description:
+      POST an event.created webhook from Eventbrite.
+      [Eventbrite docs](https://www.eventbrite.com/developer/v3/api_overview/webhooks/)
+      [Configure here](https://www.eventbrite.com/myaccount/webhooks/)
     displayName: Create Event Webhook
+    post:
+      body:
+        application/json:
+          type: EventWebhook
+          example: !include /examples/eventbritewebhook.json
+  /update:
+    description:
+      POST an event.updated webhook from Eventbrite.
+      [Eventbrite docs](https://www.eventbrite.com/developer/v3/api_overview/webhooks/)
+      [Configure here](https://www.eventbrite.com/myaccount/webhooks/)
+    displayName: Update Event Webhook
     post:
       body:
         application/json:
