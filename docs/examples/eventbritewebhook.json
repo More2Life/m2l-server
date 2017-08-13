@@ -1,0 +1,9 @@
+{
+  "api_url": "https://www.eventbriteapi.com/{api-endpoint-to-fetch-object-details}/",
+  "config": {
+    "action": "test",
+    "endpoint_url": "https://m2l-server-pr-39.herokuapp.com/api/webhooks/eventbrite/update",
+    "user_id": "216775133792",
+    "webhook_id": "455763"
+  }
+}
