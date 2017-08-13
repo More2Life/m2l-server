@@ -88,6 +88,23 @@ types:
       lastUpdatedAt:
         type: string
         description: The date the item was last updated on Square
+  EventWebhook:
+    properties:
+      api_url:
+        type: string
+        description: URL for the updated resource
+      config:
+        type: object
+        properties:
+          action:
+            type: string
+            description: Name of the event that occured on Eventbrite
+          endpoint_url:
+            type: string
+            description: The URL to which Eventbrite will POST the hook body
+          user_id: string
+          webhook_id: string
+
 /feedItems:
   description: Get a feed of content
   displayName: Feed
@@ -107,3 +124,13 @@ types:
           application/json:
             type: FeedItem[]
             example: !include /examples/feed-example.json
+
+/webhooks/eventbrite:
+  /create:
+    description: POST an event.created webhook from Eventbrite
+    displayName: Create Event Webhook
+    post:
+      body:
+        application/json:
+          type: EventWebhook
+          example: !include /examples/eventbritewebhook.json
