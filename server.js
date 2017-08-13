@@ -9,6 +9,7 @@ var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var database = require('./database/database');
+var createError = require('http-errors');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -28,6 +29,8 @@ var Event = require('./models/event').Event;
 // CONTROLLERS
 // =============================================================================
 var feedItemController = require ('./controllers/feedItemController').FeedItemController;
+var listingController = require ('./controllers/listingController').ListingController;
+var eventController = require ('./controllers/eventController').EventController;
 
 
 // ROUTES FOR OUR API
@@ -51,6 +54,58 @@ router.get('/feedItems', function (req, res) {
         if(err) throw err;
         res.json(feedItems);
     });
+});
+
+// WEBHOOK ENDPOINTS
+// =============================================================================
+router.post('/webhooks/square', function (req, res) {
+    console.log('POST from Square');
+    console.log(req.body);
+    var eventType = req.body.event_type;
+    console.log('Event Type: ' + eventType);
+
+    if (eventType == 'INVENTORY_UPDATED') {
+        // TODO: handle notification
+    } else if (eventType == 'TEST_NOTIFICATION') {
+            console.log("TEST NOTIFICATION RECEIVED");
+    }
+    res.json({status:'success'});
+});
+
+router.post('/webhooks/eventbrite/create', function (req, res, next) {
+    console.log('POST on /eventbrite/create');
+    console.log(req.body);
+
+    if (req.body.config.action == 'test') {
+        res.json("Test notification. Good job; it works.");
+    } else if (req.body.config.action == 'event.created') {
+        eventController.createFromEventbrite(req.body.api_url, function(err) {
+            if (err) {
+                return next(err);
+            }
+            res.json("Thanks, Eventbrite. We'll take care of it from here.");
+        });
+    } else {
+        res.json("That's not event.created but thanks anyway.");
+    }
+});
+
+router.post('/webhooks/eventbrite/update', function (req, res, next) {
+    console.log("POST on /eventbrite/update");
+    console.log(req.body);
+
+    if (req.body.config.action == 'test') {
+        res.json("Test notification. Good job; it works.");
+    } else if (req.body.config.action == 'event.updated') {
+        eventController.updateFromEventbrite(req.body.api_url, function(err) {
+            if (err) {
+                return next(err);
+            }
+            res.json("Thanks, Eventbrite. We'll take care of it from here.");
+        });
+    } else {
+        res.json("That's not event.created but thanks anyway.");
+    }
 });
 
 // START THE SERVER
