@@ -1,5 +1,6 @@
 # m2l-server
 More2Life App Server
+[API Doc](https://more2life.github.io/m2l-server/)
 
 ## Setup
 
