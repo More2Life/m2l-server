@@ -58,31 +58,27 @@ var ListingController = {
     //     });
     // },
 
-    // updateListing: async (item) => {
-    //     try {
-    //         console.log('ITEM TO SEARCH:');
-    //         console.log(item);
-    //
-    //         var listing = await Listing.findOne({'vendorId' : item.id});
-    //         if (listing) {
-    //             console.log('LISTING FOUND:');
-    //             console.log(listing);
-    //
-    //             // If the item has been updated after last DB put, update the listing document
-    //             var date1 = Date.parse(listing.lastUpdatedAt);
-    //             var date2 = Date.parse(item.updated_at);
-    //             if (date1 < date2) {
-    //                 ListingController.updateListing(listing, item);
-    //             }
-    //         } else {
-    //             ListingController.createListing(item);
-    //         }
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // },
+    handleWebhook : async (item) => {
+        try {
+            console.log('ITEM TO SEARCH:');
+            console.log(item);
+
+            var listing = await Listing.findOne({'vendorId' : item.id});
+            if (listing) {
+                console.log('LISTING FOUND:');
+                console.log(listing);
+
+                ListingController.updateListing(listing, item);
+            } else {
+                ListingController.createListing(item);
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    },
 
     createListing : (item) => {
+
         console.log('CREATING LISTING WITH ITEM:');
         console.log(item);
         var listing = new Listing({
@@ -99,29 +95,16 @@ var ListingController = {
         ListingController.saveListing(listing);
     },
 
-    updateListing : async (item) => {
-        try {
-            console.log('ITEM TO SEARCH:');
-            console.log(item);
+    updateListing : (listing, item) => {
+        listing.title = item.title;
+        listing.description = item.body_html;
+        listing.previewImageUrl = item.images[0].src;
+        listing.lastUpdatedAt = item.updated_at;
+        listing.price = item.variants[0].price;
 
-            var listing = await Listing.findOne({'vendorId' : item.id});
-            if (listing) {
-                console.log('LISTING FOUND:');
-                console.log(listing);
-
-                listing.title = item.title;
-                listing.description = item.body_html;
-                listing.previewImageUrl = item.images[0].src;
-                listing.lastUpdatedAt = item.updated_at;
-                listing.price = item.variants[0].price;
-
-                ListingController.saveListing(listing);
-
-            }
-        } catch (err) {
-            console.log(err);
-        }
+        ListingController.saveListing(listing);
     },
+
     saveListing : (listing) => {
         console.log('SAVING LISTING: ');
         console.log(listing);

@@ -72,20 +72,11 @@ router.post('/webhooks/square', function (req, res) {
     res.json({status:'success'});
 });
 
-router.post('/webhooks/shopify/product/create', function (req, res) {
+router.post('/webhooks/shopify/product', function (req, res) {
     console.log('CREATE Shopify');
     console.log(req.body);
 
-    listingController.createListing(req.body);
-
-    res.json({status:'success'});
-});
-
-router.post('/webhooks/shopify/product/update', function (req, res) {
-    console.log('UPDATE Shopify');
-    console.log(req.body);
-
-    listingController.updateListing(req.body);
+    listingController.handleWebhook(req.body);
 
     res.json({status:'success'});
 });
