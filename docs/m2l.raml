@@ -118,6 +118,9 @@ types:
       type?:
         enum: [video, event, listing]
         description: Used to request feed items of only one type
+      isActive?:
+        type: boolean
+        description: Active feedItems should be shown in the app.
     headers:
       Accept-Language:
         description: The language the application is running in. Titles, descriptions, and any other user facing string should come down from the server translated in that language.
