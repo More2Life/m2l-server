@@ -82,12 +82,15 @@ types:
       previewImageUrl:
         type: string
         description: The url to the image for the product to show as a preview
-      squareId:
+      vendorId:
         type: string
-        description: The ID of the item on Square
+        description: The ID of the item on the vendor (Shopify)
       lastUpdatedAt:
         type: string
-        description: The date the item was last updated on Square
+        description: The date the item was last updated on the vendor's system
+      price:
+        type: number
+        description: The price of the item
   EventWebhook:
     properties:
       api_url:
@@ -115,6 +118,9 @@ types:
       type?:
         enum: [video, event, listing]
         description: Used to request feed items of only one type
+      isActive?:
+        type: boolean
+        description: Active feedItems should be shown in the app.
     headers:
       Accept-Language:
         description: The language the application is running in. Titles, descriptions, and any other user facing string should come down from the server translated in that language.
