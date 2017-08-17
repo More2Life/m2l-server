@@ -1,3 +1,4 @@
+console.log(process.env.REDIS_URL);
 var client = require('redis').createClient(process.env.REDIS_URL);
 
 client.on('connect', () => {
