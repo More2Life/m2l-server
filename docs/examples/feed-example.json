@@ -29,7 +29,7 @@
     "venueName" : "Todd's House",
     "eventUrl" : "https://www.eventbrite.com/e/test-event-registration-36694259518",
     "resourceUri" : "https://www.eventbriteapi.com/v3/events/36694259518/",
-    "imageUrl" : "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F33801220%2F216775133792%2F1%2Foriginal.jpg?s=3cfc1ec1828b790b438cd649fb9161fb",
+    "previewImageUrl" : "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F33801220%2F216775133792%2F1%2Foriginal.jpg?s=3cfc1ec1828b790b438cd649fb9161fb",
     "startTime" : "2017-09-10T19:00:00",
     "endTime" : "2017-09-10T22:00:00"
   },
@@ -41,10 +41,7 @@
     "description" : "This rad M2L shirt",
     "index" : 2,
     "previewImageUrl" : "https://static1.squarespace.com/static/589cd8763a04119f4ac96b94/5935c61303596eebfc69fb24/5935c85fa5790a30526cd72b/1496701404713/17FTB+More2Life+Harlem+1226.CR2.jpg",
-    "vendorId" : "AD3456GDKH2",
-    "lastUpdatedAt" : "2017-08-10T17:15:05.589Z",
-    "price" : "25.00"
-
+    "price" : 25.00
   },
   {
     "_id" : "event2",
@@ -65,7 +62,7 @@
     "venueName" : "Todd's Old House",
     "eventUrl" : "https://www.eventbrite.com/e/kalani-sitake-more2life-foundation-luncheon-tickets-35192924986#",
     "resourceUri" : "https://www.eventbriteapi.com/v3/events/35192924986/",
-    "imageUrl" : "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F33801220%2F216775133792%2F1%2Foriginal.jpg?s=3cfc1ec1828b790b438cd649fb9161fb",
+    "previewImageUrl" : "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F33801220%2F216775133792%2F1%2Foriginal.jpg?s=3cfc1ec1828b790b438cd649fb9161fb",
     "startTime" : "2017-09-10T19:00:00",
     "endTime" : "2017-09-10T22:00:00"
   }

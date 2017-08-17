@@ -3,7 +3,6 @@ var FeedItem = mongoose.model('feeditems');
 
 // Create listing schema. Inherit FeedItem
 var listingSchema = new mongoose.Schema({
-    previewImageUrl: String,
     vendorId: String,
     lastUpdatedAt: String,
     price: Number

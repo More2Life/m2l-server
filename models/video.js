@@ -3,7 +3,6 @@ var FeedItem = mongoose.model('feeditems');
 
 // Create video schema. Inherit FeedItem
 var videoSchema = new mongoose.Schema({
-    previewImageUrl: String,
     videoUrl: String,
     publishDate: Date,
     views: Number

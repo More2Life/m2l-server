@@ -32,7 +32,7 @@ function createEvent(eventBody, endRequest) {
                 eventStatus: eventBody.status,
                 eventUrl: eventBody.url,
                 resourceUri: eventBody.resource_uri,
-                imageUrl: (eventBody.logo) ? eventBody.logo.original.url : null,
+                previewImageUrl: (eventBody.logo) ? eventBody.logo.original.url : null,
                 startTime: eventBody.start.local,
                 endTime: eventBody.end.local,
                 address: venueBody.address.localized_address_display,
@@ -77,7 +77,7 @@ function updateEvent(eventBody, endRequest) {
             ev.isActive = (eventBody.status === 'live') ? true : false;
             ev.eventStatus = eventBody.status;
             ev.eventUrl = eventBody.url;
-            ev.imageUrl = (eventBody.logo) ? eventBody.logo.original.url : null;
+            ev.previewImageUrl = (eventBody.logo) ? eventBody.logo.original.url : null;
             ev.startTime = eventBody.start.local;
             ev.endTime = eventBody.end.local;
 
