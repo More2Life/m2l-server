@@ -16,7 +16,7 @@ types:
       description:
         type: string
         description: The description of the content in the item
-      previewImageUrl:
+      feedImageUrl:
         type: string
         description: The url to the image to be shown in the feed
       index:
@@ -24,20 +24,23 @@ types:
         description: The position of the item in the feed. Used for sorting and paging
       type:
         type: string
-        enum: [video, event, listing]
+        enum: [story, event, listing]
       isActive:
         type: boolean
         description: Should be displayed in the Feed
-  Video:
+      images?:
+        type: string[]
+        description: URLs to gallery images for this feed item
+  Story:
     type: FeedItem
     properties:
-      videoUrl:
+      videoUrl?:
         description: The url to the video stream
         type: string
       publishDate:
-        description: The date the video was published
+        description: The date the story was published
         type: string
-      views:
+      views?:
         description: The number of times the video was viewed
         type: integer
   Event:
@@ -110,7 +113,7 @@ types:
       count?: integer
       index?: integer
       type?:
-        enum: [video, event, listing]
+        enum: [story, event, listing]
         description: Used to request feed items of only one type
       isActive?:
         type: boolean
