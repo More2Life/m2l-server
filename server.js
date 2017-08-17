@@ -72,18 +72,20 @@ router.post('/webhooks/square', function (req, res) {
     res.json({status:'success'});
 });
 
-router.post('/webhooks/shopify/product', function (req, res) {
-    console.log('POST from Shopify');
+router.post('/webhooks/shopify/product/create', function (req, res) {
+    console.log('CREATE Shopify');
     console.log(req.body);
-    // var eventType = req.body.event_type;
-    // console.log('Event Type: ' + eventType);
-    //
-    // if (eventType == 'INVENTORY_UPDATED') {
-    //     // TODO: handle notification
-    // } else if (eventType == 'TEST_NOTIFICATION') {
-    //     console.log("TEST NOTIFICATION RECEIVED");
-    // }
 
+    listingController.createListing(req.body);
+
+    res.json({status:'success'});
+});
+
+router.post('/webhooks/shopify/product/update', function (req, res) {
+    console.log('UPDATE Shopify');
+    console.log(req.body);
+
+    listingController.updateListing(req.body);
 
     res.json({status:'success'});
 });
