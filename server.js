@@ -72,6 +72,22 @@ router.post('/webhooks/square', function (req, res) {
     res.json({status:'success'});
 });
 
+router.post('/webhooks/shopify/product', function (req, res) {
+    console.log('POST from Shopify');
+    console.log(req.body);
+    // var eventType = req.body.event_type;
+    // console.log('Event Type: ' + eventType);
+    //
+    // if (eventType == 'INVENTORY_UPDATED') {
+    //     // TODO: handle notification
+    // } else if (eventType == 'TEST_NOTIFICATION') {
+    //     console.log("TEST NOTIFICATION RECEIVED");
+    // }
+
+
+    res.json({status:'success'});
+});
+
 router.post('/webhooks/eventbrite/create', function (req, res, next) {
     console.log('POST on /eventbrite/create');
     console.log(req.body);
