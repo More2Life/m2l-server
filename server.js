@@ -72,6 +72,15 @@ router.post('/webhooks/square', function (req, res) {
     res.json({status:'success'});
 });
 
+router.post('/webhooks/shopify/product', function (req, res) {
+    console.log('POST from Shopify');
+    console.log(req.body);
+
+    listingController.handleWebhook(req.body);
+
+    res.json({status:'success'});
+});
+
 router.post('/webhooks/eventbrite/create', function (req, res, next) {
     console.log('POST on /eventbrite/create');
     console.log(req.body);

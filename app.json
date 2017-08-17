@@ -9,7 +9,10 @@
     "EVENTBRITE_BEARER_TOKEN": {
       "required": true
     },
-    "SQUARE_PERSONAL_ACCESS_TOKEN": {
+    "SHOPIFY_ACCESS_TOKEN": {
+      "required": true
+    },
+    "REDIS_URL": {
       "required": true
     }
   },

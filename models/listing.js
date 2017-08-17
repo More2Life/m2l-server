@@ -4,8 +4,9 @@ var FeedItem = mongoose.model('feeditems');
 // Create listing schema. Inherit FeedItem
 var listingSchema = new mongoose.Schema({
     previewImageUrl: String,
-    squareId: String,
-    lastUpdatedAt: String
+    vendorId: String,
+    lastUpdatedAt: String,
+    price: Number
 });
 
 // discriminator used for document inheritance within the same collection
