@@ -5,7 +5,8 @@ var FeedItem = mongoose.model('feeditems');
 var listingSchema = new mongoose.Schema({
     previewImageUrl: String,
     vendorId: String,
-    lastUpdatedAt: String
+    lastUpdatedAt: String,
+    price: Number
 });
 
 // discriminator used for document inheritance within the same collection

@@ -92,7 +92,8 @@ var ListingController = {
             isActive: true,
             vendorId: item.id,
             previewImageUrl: item.images[0].src,
-            lastUpdatedAt: item.updated_at
+            lastUpdatedAt: item.updated_at,
+            price: item.variants[0].price
         });
 
         ListingController.saveListing(listing);
@@ -112,6 +113,7 @@ var ListingController = {
                 listing.description = item.body_html;
                 listing.previewImageUrl = item.images[0].src;
                 listing.lastUpdatedAt = item.updated_at;
+                listing.price = item.variants[0].price;
 
                 ListingController.saveListing(listing);
 
