@@ -73,7 +73,7 @@ router.post('/webhooks/square', function (req, res) {
 });
 
 router.post('/webhooks/shopify/product', function (req, res) {
-    console.log('CREATE Shopify');
+    console.log('POST from Shopify');
     console.log(req.body);
 
     listingController.handleWebhook(req.body);
