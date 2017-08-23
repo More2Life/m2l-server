@@ -13,7 +13,6 @@ var eventSchema = new mongoose.Schema({
     eventUrl: String,
     resourceUri: String,
     // resourceUri: { type: String, required: true unique: true },
-    imageUrl: String,
     startTime: String,
     endTime: String,
     eventStatus: String,

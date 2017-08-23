@@ -16,28 +16,31 @@ types:
       description:
         type: string
         description: The description of the content in the item
+      feedImageUrl:
+        type: string
+        description: The url to the image to be shown in the feed
       index:
         type: integer
         description: The position of the item in the feed. Used for sorting and paging
       type:
         type: string
-        enum: [video, event, listing]
+        enum: [story, event, listing]
       isActive:
         type: boolean
         description: Should be displayed in the Feed
-  Video:
+      images?:
+        type: string[]
+        description: URLs to gallery images for this feed item
+  Story:
     type: FeedItem
     properties:
-      previewImageUrl:
-        description: The url to the image for the frame of the video to show as a preview
-        type: string
-      videoUrl:
+      videoUrl?:
         description: The url to the video stream
         type: string
       publishDate:
-        description: The date the video was published
+        description: The date the story was published
         type: string
-      views:
+      views?:
         description: The number of times the video was viewed
         type: integer
   Event:
@@ -67,9 +70,6 @@ types:
       resourceUri:
         type: string
         description: URI for requesting this resource from Eventbrite API
-      imageUrl:
-        type: string
-        description: URL to the image to display for the event
       startTime:
         type: string
         description: Start date & time in local time of the event. Sorry it's a string.
@@ -79,9 +79,6 @@ types:
   Listing:
     type: FeedItem
     properties:
-      previewImageUrl:
-        type: string
-        description: The url to the image for the product to show as a preview
       vendorId:
         type: string
         description: The ID of the item on the vendor (Shopify)
@@ -116,7 +113,7 @@ types:
       count?: integer
       index?: integer
       type?:
-        enum: [video, event, listing]
+        enum: [story, event, listing]
         description: Used to request feed items of only one type
       isActive?:
         type: boolean

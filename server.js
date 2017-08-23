@@ -22,7 +22,7 @@ var port = process.env.PORT || 8080;        // set our port
 // MODELS
 // =============================================================================
 var FeedItem = require('./models/feedItem').FeedItem;
-var Video = require('./models/video').Video;
+var Story = require('./models/story').Story;
 var Listing = require('./models/listing').Listing;
 var Event = require('./models/event').Event;
 

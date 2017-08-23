@@ -9,10 +9,10 @@ var feedItemSchema = new mongoose.Schema({
     },
     title: String,
     description: String,
+    feedImageUrl: String,
     index: Number,
     isActive: Boolean
 }, options);
 
 // create model
 exports.FeedItem = mongoose.model('feeditems', feedItemSchema);
-

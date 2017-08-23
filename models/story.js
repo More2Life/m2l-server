@@ -1,9 +1,8 @@
 var mongoose = require('mongoose');
 var FeedItem = mongoose.model('feeditems');
 
-// Create video schema. Inherit FeedItem
-var videoSchema = new mongoose.Schema({
-    previewImageUrl: String,
+// Create story schema. Inherit FeedItem
+var storySchema = new mongoose.Schema({
     videoUrl: String,
     publishDate: Date,
     views: Number
@@ -12,4 +11,4 @@ var videoSchema = new mongoose.Schema({
 // discriminator used for document inheritance within the same collection
 // http://thecodebarbarian.com/2015/07/24/guide-to-mongoose-discriminators
 // create model
-exports.Video = FeedItem.discriminator('video', videoSchema);
+exports.Story = FeedItem.discriminator('story', storySchema);
