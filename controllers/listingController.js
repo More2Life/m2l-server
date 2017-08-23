@@ -96,8 +96,6 @@ var ListingController = {
     },
 
     updateListing : (listing, item) => {
-        console.log('IMAGE');
-        console.log(item.images[0]);
 
         listing.title = item.title;
         listing.description = item.body_html;
