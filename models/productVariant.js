@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 // Create listing schema. Inherit FeedItem
-var productVariant = new mongoose.Schema({
+var productVariantSchema = new mongoose.Schema({
     vendorId: Number,
     title: String,
     sku: String,
@@ -12,5 +12,5 @@ var productVariant = new mongoose.Schema({
     inventoryQuantity: Number
 });
 
-// create model
-exports.ProductVariant = mongoose.model('productvariant', productVariantSchema);
+// export schema
+exports.ProductVariant = productVariantSchema;
