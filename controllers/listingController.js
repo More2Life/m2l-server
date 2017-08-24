@@ -143,6 +143,7 @@ var ListingController = {
             if (err) {
                 console.log('ERROR SAVING LISTING:');
                 console.log(listing)
+                console.log(err);
             }
         });
     }
