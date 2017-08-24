@@ -61,12 +61,9 @@ var ListingController = {
 
     handleWebhook : async (item) => {
         try {
-            console.log('ITEM TO SEARCH:');
-            console.log(item);
             var listing = await Listing.findOne({'vendorId' : item.id});
             if (listing) {
-                console.log('LISTING FOUND:');
-                console.log(listing);
+                console.log('LISTING FOUND');
                 ListingController.updateListing(listing, item);
             } else {
                 ListingController.createListing(item);
@@ -78,8 +75,7 @@ var ListingController = {
 
     createListing : (item) => {
 
-        console.log('CREATING LISTING WITH ITEM:');
-        console.log(item);
+        console.log('CREATING LISTING');
         let variants = [];
         item.variants.forEach( v => {
             var variant = {
@@ -137,8 +133,7 @@ var ListingController = {
     },
 
     saveListing : (listing) => {
-        console.log('SAVING LISTING: ');
-        console.log(listing);
+        console.log('SAVING LISTING');
         listing.save(function (err) {
             if (err) {
                 console.log('ERROR SAVING LISTING:');
