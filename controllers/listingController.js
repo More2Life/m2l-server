@@ -86,7 +86,7 @@ var ListingController = {
                 option2: v.option2,
                 option3: v.option3,
                 imageId: v.imageId,
-                inventoryQuantity: Number
+                inventoryQuantity: v.inventory_quantity
             };
             variants.push(variant);
         });
@@ -117,7 +117,7 @@ var ListingController = {
                 option2: v.option2,
                 option3: v.option3,
                 imageId: v.imageId,
-                inventoryQuantity: Number
+                inventoryQuantity: v.inventory_quantity
             };
             variants.push(variant);
         });
