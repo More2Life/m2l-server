@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Listing = require('../models/listing').Listing;
-var ProductVariant = require('../models/productVariant').ProductVariant;
+// var ProductVariant = require('../models/productVariant').ProductVariant;
 // var request = require('request');
 // var redisController = require('../database/redis.js').RedisController;
 var moment = require('moment');
@@ -82,7 +82,7 @@ var ListingController = {
         console.log(item);
         let variants = [];
         item.variants.forEach( v => {
-            var variant = new ProductVariant({
+            var variant = {
                 vendorId: v.id,
                 title: v.title,
                 sku: v.sku,
@@ -91,7 +91,7 @@ var ListingController = {
                 option3: v.option3,
                 imageId: v.imageId,
                 inventoryQuantity: Number
-            });
+            };
             variants.push(variant);
         });
 
@@ -113,7 +113,7 @@ var ListingController = {
     updateListing : (listing, item) => {
         let variants = [];
         item.variants.forEach( v => {
-            var variant = new ProductVariant({
+            var variant = {
                 vendorId: v.id,
                 title: v.title,
                 sku: v.sku,
@@ -122,7 +122,7 @@ var ListingController = {
                 option3: v.option3,
                 imageId: v.imageId,
                 inventoryQuantity: Number
-            });
+            };
             variants.push(variant);
         });
 
