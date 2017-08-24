@@ -85,7 +85,7 @@ var ListingController = {
                 option1: v.option1,
                 option2: v.option2,
                 option3: v.option3,
-                imageId: v.imageId,
+                imageId: v.image_id,
                 inventoryQuantity: v.inventory_quantity
             };
             variants.push(variant);
@@ -116,7 +116,7 @@ var ListingController = {
                 option1: v.option1,
                 option2: v.option2,
                 option3: v.option3,
-                imageId: v.imageId,
+                imageId: v.image_id,
                 inventoryQuantity: v.inventory_quantity
             };
             variants.push(variant);
