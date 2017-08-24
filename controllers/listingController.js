@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Listing = require('../models/listing').Listing;
+var ProductVariant = require('../models/productVariant').ProductVariant;
 // var request = require('request');
 // var redisController = require('../database/redis.js').RedisController;
 var moment = require('moment');
@@ -62,12 +63,10 @@ var ListingController = {
         try {
             console.log('ITEM TO SEARCH:');
             console.log(item);
-
             var listing = await Listing.findOne({'vendorId' : item.id});
             if (listing) {
                 console.log('LISTING FOUND:');
                 console.log(listing);
-
                 ListingController.updateListing(listing, item);
             } else {
                 ListingController.createListing(item);
@@ -81,6 +80,21 @@ var ListingController = {
 
         console.log('CREATING LISTING WITH ITEM:');
         console.log(item);
+        let variants = [];
+        item.variants.forEach( v => {
+            var variant = new ProductVariant({
+                vendorId: v.id,
+                title: v.title,
+                sku: v.sku,
+                option1: v.option1,
+                option2: v.option2,
+                option3: v.option3,
+                imageId: v.imageId,
+                inventoryQuantity: Number
+            });
+            variants.push(variant);
+        });
+
         var listing = new Listing({
             title: item.title,
             description: item.body_html,
@@ -89,19 +103,35 @@ var ListingController = {
             vendorId: item.id,
             feedImageUrl: item.images[0].src,
             lastUpdatedAt: item.updated_at,
-            price: item.variants[0].price
+            price: item.variants[0].price,
+            variants: variants
         });
 
         ListingController.saveListing(listing);
     },
 
     updateListing : (listing, item) => {
+        let variants = [];
+        item.variants.forEach( v => {
+            var variant = new ProductVariant({
+                vendorId: v.id,
+                title: v.title,
+                sku: v.sku,
+                option1: v.option1,
+                option2: v.option2,
+                option3: v.option3,
+                imageId: v.imageId,
+                inventoryQuantity: Number
+            });
+            variants.push(variant);
+        });
 
         listing.title = item.title;
         listing.description = item.body_html;
         listing.feedImageUrl = item.images[0].src;
         listing.lastUpdatedAt = item.updated_at;
         listing.price = item.variants[0].price;
+        listing.variants = variants;
 
         ListingController.saveListing(listing);
     },

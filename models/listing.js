@@ -1,11 +1,13 @@
 var mongoose = require('mongoose');
 var FeedItem = mongoose.model('feeditems');
+var ProductVariant = require('./productVariant').ProductVariant;
 
 // Create listing schema. Inherit FeedItem
 var listingSchema = new mongoose.Schema({
-    vendorId: String,
+    vendorId: Number,
     lastUpdatedAt: String,
-    price: Number
+    price: Number,
+    variants: [ProductVariant]
 });
 
 // discriminator used for document inheritance within the same collection

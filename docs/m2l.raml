@@ -80,7 +80,7 @@ types:
     type: FeedItem
     properties:
       vendorId:
-        type: string
+        type: integer
         description: The ID of the item on the vendor (Shopify)
       lastUpdatedAt:
         type: string
@@ -88,6 +88,9 @@ types:
       price:
         type: number
         description: The price of the item
+      variants:
+        type: ProductVariant[]
+        description: A list of variants of the product
   EventWebhook:
     properties:
       api_url:
@@ -104,6 +107,32 @@ types:
             description: The URL to which Eventbrite will POST the hook body
           user_id: string
           webhook_id: string
+  ProductVariant:
+    properties:
+      vendorId:
+        type: integer
+        description: the id suplpied by the vendor (Shopify)
+      title:
+        type: string
+        description: The title of the variant
+      sku:
+        type: string
+        description: The SKU of the variant
+      option1:
+        type: string
+        description: First option
+      option2:
+        type: string
+        description: Second option
+      option3:
+        type: string
+        description: Third option
+      imageId:
+        type: integer
+        description: The id referencing the image in the product images array
+      inventoryQuantity:
+        type: integer
+        description: The quantity available in inventory for the variant
 
 /feedItems:
   description: Get a feed of content
