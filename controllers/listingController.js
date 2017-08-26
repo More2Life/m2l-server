@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Listing = require('../models/listing').Listing;
+// var ProductVariant = require('../models/productVariant').ProductVariant;
 // var request = require('request');
 // var redisController = require('../database/redis.js').RedisController;
 var moment = require('moment');
@@ -60,14 +61,9 @@ var ListingController = {
 
     handleWebhook : async (item) => {
         try {
-            console.log('ITEM TO SEARCH:');
-            console.log(item);
-
             var listing = await Listing.findOne({'vendorId' : item.id});
             if (listing) {
-                console.log('LISTING FOUND:');
-                console.log(listing);
-
+                console.log('LISTING FOUND');
                 ListingController.updateListing(listing, item);
             } else {
                 ListingController.createListing(item);
@@ -79,39 +75,70 @@ var ListingController = {
 
     createListing : (item) => {
 
-        console.log('CREATING LISTING WITH ITEM:');
-        console.log(item);
+        console.log('CREATING LISTING');
+        let variants = [];
+        item.variants.forEach( v => {
+            var variant = {
+                vendorId: v.id,
+                title: v.title,
+                sku: v.sku,
+                option1: v.option1,
+                option2: v.option2,
+                option3: v.option3,
+                imageId: v.image_id,
+                inventoryQuantity: v.inventory_quantity
+            };
+            variants.push(variant);
+        });
+
         var listing = new Listing({
             title: item.title,
             description: item.body_html,
             index: 0,
             isActive: true,
             vendorId: item.id,
-            previewImageUrl: item.images[0].src,
+            feedImageUrl: item.images[0].src,
             lastUpdatedAt: item.updated_at,
-            price: item.variants[0].price
+            price: item.variants[0].price,
+            variants: variants
         });
 
         ListingController.saveListing(listing);
     },
 
     updateListing : (listing, item) => {
+        let variants = [];
+        item.variants.forEach( v => {
+            var variant = {
+                vendorId: v.id,
+                title: v.title,
+                sku: v.sku,
+                option1: v.option1,
+                option2: v.option2,
+                option3: v.option3,
+                imageId: v.image_id,
+                inventoryQuantity: v.inventory_quantity
+            };
+            variants.push(variant);
+        });
+
         listing.title = item.title;
         listing.description = item.body_html;
-        listing.previewImageUrl = item.images[0].src;
+        listing.feedImageUrl = item.images[0].src;
         listing.lastUpdatedAt = item.updated_at;
         listing.price = item.variants[0].price;
+        listing.variants = variants;
 
         ListingController.saveListing(listing);
     },
 
     saveListing : (listing) => {
-        console.log('SAVING LISTING: ');
-        console.log(listing);
+        console.log('SAVING LISTING');
         listing.save(function (err) {
             if (err) {
                 console.log('ERROR SAVING LISTING:');
                 console.log(listing)
+                console.log(err);
             }
         });
     }
