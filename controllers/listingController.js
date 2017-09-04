@@ -60,17 +60,21 @@ var ListingController = {
     // },
 
     handleWebhook : async (item) => {
-        try {
-            var listing = await Listing.findOne({'vendorId' : item.id});
-            if (listing) {
-                console.log('LISTING FOUND');
-                ListingController.updateListing(listing, item);
-            } else {
-                ListingController.createListing(item);
-            }
-        } catch (err) {
-            console.log(err);
-        }
+
+        //TODO: handle product listing webhook instead of product webhook
+        console.log("PRODUCT LISTING:");
+        console.log(item);
+        // try {
+        //     var listing = await Listing.findOne({'vendorId' : item.id});
+        //     if (listing) {
+        //         console.log('LISTING FOUND');
+        //         ListingController.updateListing(listing, item);
+        //     } else {
+        //         ListingController.createListing(item);
+        //     }
+        // } catch (err) {
+        //     console.log(err);
+        // }
     },
 
     createListing : (item) => {
