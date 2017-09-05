@@ -1,17 +1,22 @@
 {
-  "name": "node-api",
-  "main": "server.js",
-  "dependencies": {
-    "body-parser": "~1.0.1",
-    "express": "~4.0.0",
-    "http-errors": "^1.6.2",
-    "moment": "^2.18.1",
-    "mongoose": "^4.10.8",
-    "mongoose-unique-validator": "^1.0.5",
-    "redis": "^2.7.1",
-    "request": "^2.81.0"
-  },
-  "engines": {
-    "node": "8.2.1"
-  }
+    "name": "node-api",
+    "main": "server.js",
+    "dependencies": {
+        "body-parser": "~1.0.1",
+        "express": "~4.8.0",
+        "http-errors": "^1.6.2",
+        "moment": "^2.18.1",
+        "mongoose": "^4.10.8",
+        "mongoose-unique-validator": "^1.0.5",
+        "password-generator": "^2.1.0",
+        "redis": "^2.7.1",
+        "request": "^2.81.0"
+    },
+    "engines": {
+        "node": "8.2.1"
+    },
+    "scripts": {
+        "start": "node server.js",
+        "heroku-postbuild": "cd web && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    }
 }

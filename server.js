@@ -2,22 +2,15 @@
 
 // BASE SETUP
 // =============================================================================
+var express     = require('express');
+var app         = express();
+var bodyParser  = require('body-parser');
 
-// call the packages we need
-var express    = require('express');        // call express
-var app        = express();                 // define our app using express
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var database = require('./database/database');
+var mongoose    = require('mongoose');
+var database    = require('./database/database');
 var createError = require('http-errors');
-
-// configure app to use bodyParser()
-// this will let us get the data from a POST
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-var port = process.env.PORT || 8080;        // set our port
-
+var path = require('path');
+var generatePassword = require('password-generator');
 
 // MODELS
 // =============================================================================
@@ -32,22 +25,33 @@ var feedItemController = require ('./controllers/feedItemController').FeedItemCo
 var listingController = require ('./controllers/listingController').ListingController;
 var eventController = require ('./controllers/eventController').EventController;
 
-
-// ROUTES FOR OUR API
+// CONFIGURE APP
 // =============================================================================
-var router = express.Router();              // get an instance of the express Router
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// REGISTER OUR ROUTES
+// =============================================================================
+app.use(express.static(path.join(__dirname, 'web/build')));  // Serve static files from the React app
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
-router.get('/', function(req, res) {
+app.get('/api', function(req, res) {
     res.json({ message: 'Welcome to the More2Life App API!' });
 });
 
+//web demo
+app.get('/api/passwords', (req, res) => {
+  const count = 5;
+  // Generate some passwords
+  const passwords = Array.from(Array(count).keys()).map(i =>
+    generatePassword(12, false)
+  )
+  // Return them as json
+  res.json(passwords);
+  console.log(`Sent ${count} passwords`);
+});
 
-// REGISTER OUR ROUTES -------------------------------
-// all of our routes will be prefixed with /api
-app.use('/api', router);
-
-router.get('/feedItems', function (req, res) {
+app.get('/api/feedItems', function (req, res) {
     console.log('GET Feed Items');
 
     feedItemController.getFeedItems(req, function(err, feedItems) {
@@ -57,8 +61,7 @@ router.get('/feedItems', function (req, res) {
 });
 
 // WEBHOOK ENDPOINTS
-// =============================================================================
-router.post('/webhooks/square', function (req, res) {
+app.post('/api/webhooks/square', function (req, res) {
     console.log('POST from Square');
     console.log(req.body);
     var eventType = req.body.event_type;
@@ -72,7 +75,7 @@ router.post('/webhooks/square', function (req, res) {
     res.json({status:'success'});
 });
 
-router.post('/webhooks/shopify/product', function (req, res) {
+app.post('/api/webhooks/shopify/product', function (req, res) {
     console.log('POST from Shopify');
     console.log(req.body);
 
@@ -81,7 +84,7 @@ router.post('/webhooks/shopify/product', function (req, res) {
     res.json({status:'success'});
 });
 
-router.post('/webhooks/eventbrite/create', function (req, res, next) {
+app.post('/api/webhooks/eventbrite/create', function (req, res, next) {
     console.log('POST on /eventbrite/create');
     console.log(req.body);
 
@@ -99,7 +102,7 @@ router.post('/webhooks/eventbrite/create', function (req, res, next) {
     }
 });
 
-router.post('/webhooks/eventbrite/update', function (req, res, next) {
+app.post('/api/webhooks/eventbrite/update', function (req, res, next) {
     console.log("POST on /eventbrite/update");
     console.log(req.body);
 
@@ -113,11 +116,18 @@ router.post('/webhooks/eventbrite/update', function (req, res, next) {
             res.json("Thanks, Eventbrite. We'll take care of it from here.");
         });
     } else {
-        res.json("That's not event.created but thanks anyway.");
+        res.json("That's not event.updated but thanks anyway.");
     }
+});
+
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
+app.get('*', function(req, res) {
+  res.sendFile(path.resolve(__dirname, 'web/build', 'index.html'));
 });
 
 // START THE SERVER
 // =============================================================================
+var port = process.env.PORT || 8080;
 app.listen(port);
 console.log('Magic happens on port ' + port);
