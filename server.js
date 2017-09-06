@@ -1,32 +1,31 @@
 // server.js
 
-// BASE SETUP
+// IMPORTS
 // =============================================================================
 var express     = require('express');
-var app         = express();
 var bodyParser  = require('body-parser');
-
 var mongoose    = require('mongoose');
 var database    = require('./database/database');
 var createError = require('http-errors');
-var path = require('path');
-var generatePassword = require('password-generator');
+var path        = require('path');
+var generator   = require('password-generator');
 
 // MODELS
 // =============================================================================
-var FeedItem = require('./models/feedItem').FeedItem;
-var Story = require('./models/story').Story;
-var Listing = require('./models/listing').Listing;
-var Event = require('./models/event').Event;
+var FeedItem    = require('./models/feedItem').FeedItem;
+var Story       = require('./models/story').Story;
+var Listing     = require('./models/listing').Listing;
+var Event       = require('./models/event').Event;
 
 // CONTROLLERS
 // =============================================================================
-var feedItemController = require ('./controllers/feedItemController').FeedItemController;
-var listingController = require ('./controllers/listingController').ListingController;
-var eventController = require ('./controllers/eventController').EventController;
+var feedItemController  = require ('./controllers/feedItemController').FeedItemController;
+var listingController   = require ('./controllers/listingController').ListingController;
+var eventController     = require ('./controllers/eventController').EventController;
 
 // CONFIGURE APP
 // =============================================================================
+var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -34,24 +33,26 @@ app.use(bodyParser.json());
 // =============================================================================
 app.use(express.static(path.join(__dirname, 'web/build')));  // Serve static files from the React app
 
-// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
-app.get('/api', function(req, res) {
+var router = express.Router();
+
+//test route to make sure everything is working (accessed at GET http://localhost:8080/api)
+router.get('/', function(req, res) {
+    console.log("called /api");
     res.json({ message: 'Welcome to the More2Life App API!' });
 });
 
-//web demo
-app.get('/api/passwords', (req, res) => {
-  const count = 5;
-  // Generate some passwords
-  const passwords = Array.from(Array(count).keys()).map(i =>
-    generatePassword(12, false)
-  )
-  // Return them as json
-  res.json(passwords);
-  console.log(`Sent ${count} passwords`);
+router.get('/pass', function(req, res) {
+    console.log("called new passwords");
+    const count = 5;
+    const p = Array.from(Array(count).keys()).map(i =>
+      generator(12, false)
+    )
+    console.log(p);
+    res.json(p);
+    console.log(`Sent ${count} passwords`);
 });
 
-app.get('/api/feedItems', function (req, res) {
+router.get('/feedItems', function (req, res) {
     console.log('GET Feed Items');
 
     feedItemController.getFeedItems(req, function(err, feedItems) {
@@ -61,7 +62,7 @@ app.get('/api/feedItems', function (req, res) {
 });
 
 // WEBHOOK ENDPOINTS
-app.post('/api/webhooks/square', function (req, res) {
+router.post('/webhooks/square', function (req, res) {
     console.log('POST from Square');
     console.log(req.body);
     var eventType = req.body.event_type;
@@ -75,7 +76,7 @@ app.post('/api/webhooks/square', function (req, res) {
     res.json({status:'success'});
 });
 
-app.post('/api/webhooks/shopify/product', function (req, res) {
+router.post('/webhooks/shopify/product', function (req, res) {
     console.log('POST from Shopify');
     console.log(req.body);
 
@@ -84,7 +85,7 @@ app.post('/api/webhooks/shopify/product', function (req, res) {
     res.json({status:'success'});
 });
 
-app.post('/api/webhooks/eventbrite/create', function (req, res, next) {
+router.post('/webhooks/eventbrite/create', function (req, res, next) {
     console.log('POST on /eventbrite/create');
     console.log(req.body);
 
@@ -102,7 +103,7 @@ app.post('/api/webhooks/eventbrite/create', function (req, res, next) {
     }
 });
 
-app.post('/api/webhooks/eventbrite/update', function (req, res, next) {
+router.post('/webhooks/eventbrite/update', function (req, res, next) {
     console.log("POST on /eventbrite/update");
     console.log(req.body);
 
@@ -119,6 +120,8 @@ app.post('/api/webhooks/eventbrite/update', function (req, res, next) {
         res.json("That's not event.updated but thanks anyway.");
     }
 });
+
+app.use('/api', router);
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
