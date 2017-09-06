@@ -8,7 +8,6 @@ var mongoose    = require('mongoose');
 var database    = require('./database/database');
 var createError = require('http-errors');
 var path        = require('path');
-var generator   = require('password-generator');
 
 // MODELS
 // =============================================================================
@@ -39,17 +38,6 @@ var router = express.Router();
 router.get('/', function(req, res) {
     console.log("called /api");
     res.json({ message: 'Welcome to the More2Life App API!' });
-});
-
-router.get('/pass', function(req, res) {
-    console.log("called new passwords");
-    const count = 5;
-    const p = Array.from(Array(count).keys()).map(i =>
-      generator(12, false)
-    )
-    console.log(p);
-    res.json(p);
-    console.log(`Sent ${count} passwords`);
 });
 
 router.get('/feedItems', function (req, res) {
