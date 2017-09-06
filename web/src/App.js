@@ -1,64 +1,48 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './App.css';
 
 class App extends Component {
-  // Initialize state
-  state = { passwords: [] }
+    // Initialize state
+    state = {
+        feeditems: []
+    }
 
-  // Fetch passwords after first mount
-  componentDidMount() {
-    this.getPasswords();
-  }
+    // Fetch feeditems after first mount
+    componentDidMount() {
+        this.getFeeditems();
+    }
 
-  getPasswords = () => {
-    // Get the passwords and store them in state
-    fetch('/api/pass')
-      .then(res => res.json())
-      .then(passwords => this.setState({ passwords }));
-  }
+    getFeeditems = () => {
+        // Get the feeditems and store them in state
+        fetch('/api/feeditems')
+          .then(res => res.json())
+          .then(feeditems => this.setState({ feeditems }));
+    }
 
-  render() {
-    const { passwords } = this.state;
-
-    return (
-      <div className="App">
-        {/* Render the passwords if we have them */}
-        {passwords.length ? (
-          <div>
-            <h1>5 Passwords.</h1>
-            <ul className="passwords">
-              {/*
-                Generally it's bad to use "index" as a key.
-                It's ok for this example because there will always
-                be the same number of passwords, and they never
-                change positions in the array.
-              */}
-              {passwords.map((password, index) =>
-                <li key={index}>
-                  {password}
-                </li>
-              )}
-            </ul>
-            <button
-              className="more"
-              onClick={this.getPasswords}>
-              Get More
-            </button>
-          </div>
-        ) : (
-          // Render a helpful message otherwise
-          <div>
-            <h1>No passwords :(</h1>
-            <button
-              className="more"
-              onClick={this.getPasswords}>
-              Try Again?
-            </button>
-          </div>
-        )}
-      </div>
-    );
-  }
+    render() {
+        const {feeditems} = this.state;
+        console.log('render these feeditems', feeditems);
+        return (
+            <div className="App">
+                {feeditems.length
+                    ? (
+                        <div>
+                            <h1>Feeditems.</h1>
+                            <ul className="feeditems">
+                                {feeditems.map((feeditem, index) => <li key={index}>{feeditem.title}</li>)}
+                            </ul>
+                            <button className="more" onClick={this.getFeeditems}>Get More</button>
+                        </div>
+                    )
+                    : (
+                        <div>
+                            <h1>No feeditems</h1>
+                            <button className="more" onClick={this.getFeeditems}>Try Again?</button>
+                        </div>
+                    )}
+            </div>
+        );
+    }
 }
 
 export default App;
