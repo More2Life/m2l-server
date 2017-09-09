@@ -1,6 +1,6 @@
 {
     "name": "node-api",
-    "main": "server.js",
+    "main": "src/server.js",
     "dependencies": {
         "body-parser": "~1.0.1",
         "express": "~4.8.0",
@@ -15,7 +15,7 @@
         "node": "8.2.1"
     },
     "scripts": {
-        "start": "node server.js",
+        "start": "node src/server.js",
         "heroku-postbuild": "cd web && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
     }
 }
