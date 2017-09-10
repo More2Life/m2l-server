@@ -26,6 +26,7 @@ var ListingController = {
             index: 0,
             isActive: true,
             vendorId: item.id,
+            handle: item.handle,
             feedImageUrl: item.images[0].src,
             lastUpdatedAt: item.updated_at,
             price: item.variants[0].price
@@ -38,6 +39,7 @@ var ListingController = {
         listing.title = item.title;
         listing.description = item.body_html;
         listing.feedImageUrl = item.images[0].src;
+        listing.handle = item.handle;
         listing.lastUpdatedAt = item.updated_at;
         listing.price = item.variants[0].price;
 
