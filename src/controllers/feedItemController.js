@@ -7,11 +7,7 @@ var FeedItemController = {
         var requestedIndex = parseInt(req.query.index);
         var requestedType = req.query.type;
         var requestedIsActive = req.query.isActive;
-        console.log('Requested Count: ' + requestedCount);
-        console.log('Requested Index: ' + requestedIndex);
-        console.log('Requested Type: ' + requestedType);
-        console.log('Requested isActive: ' + requestedIsActive);
-
+        
         var query = FeedItem.find();
 
         if (requestedIsActive) {

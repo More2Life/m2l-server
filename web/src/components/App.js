@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import '../styles/App.css';
+import FeedItemsList from './FeedItemsList.js';
 
 class App extends Component {
     // Initialize state
@@ -23,23 +23,8 @@ class App extends Component {
         const {feeditems} = this.state;
         console.log('render these feeditems', feeditems);
         return (
-            <div className="App">
-                {feeditems.length
-                    ? (
-                        <div>
-                            <h1>Feeditems.</h1>
-                            <ul className="feeditems">
-                                {feeditems.map((feeditem, index) => <li key={index}>{feeditem.title}</li>)}
-                            </ul>
-                            <button className="more" onClick={this.getFeeditems}>Get More</button>
-                        </div>
-                    )
-                    : (
-                        <div>
-                            <h1>No feeditems</h1>
-                            <button className="more" onClick={this.getFeeditems}>Try Again?</button>
-                        </div>
-                    )}
+            <div className="App container">
+                <FeedItemsList feeditems={feeditems} />
             </div>
         );
     }
