@@ -11,9 +11,7 @@ var DonationController = {
                 console.log('DONATION FOUND');
                 DonationController.updateDonation(donation, item);
             } else {
-                if (item.product_type != "Donation") {
-                    DonationController.createDonation(item);
-                }
+                DonationController.createDonation(item);
             }
         } catch (err) {
             console.log(err);
