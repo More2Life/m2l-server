@@ -60,7 +60,6 @@ var ListingController = {
 
     deleteListing : (item) => {
         console.log("DELETING LISTING");
-        console.log(item);
         Listing.remove({'vendorId' : item.id}, function (err) {
             if (err) console.log("ERROR DELETING: " + err)
         });
