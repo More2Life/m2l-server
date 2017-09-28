@@ -47,6 +47,19 @@
     "price" : 25.00
   },
   {
+    "_id" : "donation1",
+    "type" : "donation",
+    "isActive" : true,
+    "title" : "Secret Santa",
+    "description" : "Sponsor a gift for a child",
+    "index" : 0,
+    "feedImageUrl" : "https://static1.squarespace.com/static/589cd8763a04119f4ac96b94/5935c61303596eebfc69fb24/5935c85fa5790a30526cd72b/1496701404713/17FTB+More2Life+Harlem+1226.CR2.jpg",
+    "vendorId" : 47361943276,
+    "handle" : "donation-1",
+    "lastUpdatedAt" : "2017-08-10T17:15:05.589Z",
+    "price" : 25.00
+  },
+  {
     "_id" : "event2",
     "type" : "event",
     "isActive" : false,

@@ -36,6 +36,7 @@ var ListingController = {
     },
 
     updateListing : (listing, item) => {
+        console.log('UPDATING LISTING');
         listing.title = item.title;
         listing.description = item.body_html;
         listing.feedImageUrl = item.images[0].src;
@@ -54,6 +55,13 @@ var ListingController = {
                 console.log(listing)
                 console.log(err);
             }
+        });
+    },
+
+    deleteListing : (item) => {
+        console.log("DELETING LISTING");
+        Listing.remove({'vendorId' : item.id}, function (err) {
+            if (err) console.log("ERROR DELETING: " + err)
         });
     }
 }
