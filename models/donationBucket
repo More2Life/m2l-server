@@ -14,4 +14,4 @@ var donationBucketSchema = new mongoose.Schema({
 });
 
 // create model
-exports.DonationBucket = mongoose.model('donation-bucket', donationBucketSchema);
+exports.DonationBucket = mongoose.model('donationbucket', donationBucketSchema);
