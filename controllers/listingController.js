@@ -55,6 +55,10 @@ var ListingController = {
                 console.log(err);
             }
         });
+    },
+
+    deleteListing : (item) => {
+        Listing.remove({'vendorId' : item.id});
     }
 }
 

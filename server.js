@@ -85,6 +85,8 @@ router.post('/webhooks/shopify/product/delete', function (req, res) {
     console.log('POST from Shopify');
     console.log(req.body);
 
+    listingController.deleteListing(req.body);
+
     res.json({status:'success'});
 });
 
