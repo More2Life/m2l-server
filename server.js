@@ -77,7 +77,7 @@ router.post('/webhooks/shopify/product/delete', function (req, res) {
     console.log('POST from Shopify');
     console.log(req.body);
 
-    if (req.body.product_type = "Donation") {
+    if (req.body.product_type == "Donation") {
         listingController.deleteDonation(req.body);
     } else {
         listingController.deleteListing(req.body);
