@@ -2,3 +2,5 @@ language: node_js
 node_js:
   - "iojs"
   - "7"
+notifications:
+  slack: more2life:IXyxlCHAzC5XZlcI9iMjWbMP
