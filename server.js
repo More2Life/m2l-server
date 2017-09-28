@@ -33,6 +33,7 @@ var feedItemController = require ('./controllers/feedItemController').FeedItemCo
 var listingController = require ('./controllers/listingController').ListingController;
 var eventController = require ('./controllers/eventController').EventController;
 var donationController = require ('./controllers/donationController').DonationController;
+var donationBucketController = require ('./controllers/donationBucketController').DonationBucketController;
 
 
 // ROUTES FOR OUR API
@@ -66,7 +67,7 @@ router.post('/webhooks/shopify/product', function (req, res) {
     console.log(req.body);
 
     if (req.body.product_type == "Donation-Bucket") {
-
+        donationBucketController.handleWebhook(req.body);
     } else if (req.body.product_type == "Donation") {
         donationController.handleWebhook(req.body);
     } else {
