@@ -65,11 +65,14 @@ router.post('/webhooks/shopify/product', function (req, res) {
     console.log('POST from Shopify');
     console.log(req.body);
 
-    if (req.body.product_type == "Donation") {
-        donationController.handleWebhook(req.body);
-    } else {
-        listingController.handleWebhook(req.body);
+    if (req.body.product_type != "Donation-Bucket") {
+        if (req.body.product_type == "Donation") {
+            donationController.handleWebhook(req.body);
+        } else {
+            listingController.handleWebhook(req.body);
+        }
     }
+
     res.json({status:'success'});
 });
 
