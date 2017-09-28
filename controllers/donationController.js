@@ -61,7 +61,7 @@ var DonationController = {
     deleteDonation : (item) => {
         console.log("DELETING DONATION");
         Donation.remove({'vendorId' : item.id}, function (err) {
-            if (err) console.log("ERROR DELETING: " + err)
+            if (err) console.log("ERROR DELETING DONATION: " + err)
         });
     }
 }
