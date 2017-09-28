@@ -59,6 +59,15 @@ router.get('/feedItems', function (req, res) {
     });
 });
 
+router.get('/donationBuckets', function (req, res) {
+    console.log('GET Donation Buckets');
+
+    donationBucketController.getDonationBuckets(req, function(err, donationBuckets) {
+        if(err) throw err;
+        res.json(donationBuckets);
+    });
+});
+
 // WEBHOOK ENDPOINTS
 // =============================================================================
 

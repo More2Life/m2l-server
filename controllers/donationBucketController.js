@@ -57,6 +57,10 @@ var DonationBucketController = {
         DonationBucket.remove({'vendorId' : item.id}, function (err) {
             if (err) console.log("ERROR DELETING DONATION BUCKET: " + err)
         });
+    },
+
+    getDonationBuckets: function(req, callback) {
+        DonationBucket.find({}, callback);
     }
 }
 

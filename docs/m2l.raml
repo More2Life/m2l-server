@@ -146,6 +146,20 @@ types:
             type: FeedItem[]
             example: !include /examples/feed-example.json
 
+/donationBuckets:
+  description: Get the donation buckets used for arbitrary donation amounts
+  displayName: Donation Bucket
+  get:
+    headers:
+      Accept-Language:
+        description: The language the application is running in. Titles, descriptions, and any other user facing string should come down from the server translated in that language.
+    responses:
+      200:
+        body:
+          application/json:
+            type: DonationBucket[]
+            example: !include /examples/donationBucket-example.json
+
 /webhooks/eventbrite:
   /create:
     description:
