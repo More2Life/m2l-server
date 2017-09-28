@@ -58,6 +58,8 @@ var ListingController = {
     },
 
     deleteListing : (item) => {
+        console.log("DELETING LISTING");
+        console.log(item);
         Listing.remove({'vendorId' : item.id});
     }
 }
