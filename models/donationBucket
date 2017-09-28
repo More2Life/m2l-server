@@ -3,9 +3,6 @@ var mongoose = require( 'mongoose' );
 // create Donation Bucket schema
 
 var donationBucketSchema = new mongoose.Schema({
-    // _id: {
-    //     $oid: String
-    // },
     title: String,
     description: String,
     feedImageUrl: String,
@@ -14,4 +11,4 @@ var donationBucketSchema = new mongoose.Schema({
 });
 
 // create model
-exports.DonationBucket = mongoose.model('donationbucket', donationBucketSchema);
+exports.DonationBucket = mongoose.model('donationbuckets', donationBucketSchema);
