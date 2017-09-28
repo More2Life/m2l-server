@@ -11,7 +11,9 @@ var ListingController = {
                 console.log('LISTING FOUND');
                 ListingController.updateListing(listing, item);
             } else {
-                ListingController.createListing(item);
+                if (item.product_type != "Donation") {
+                    ListingController.createListing(item);
+                }
             }
         } catch (err) {
             console.log(err);

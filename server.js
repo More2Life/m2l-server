@@ -25,12 +25,14 @@ var FeedItem = require('./models/feedItem').FeedItem;
 var Story = require('./models/story').Story;
 var Listing = require('./models/listing').Listing;
 var Event = require('./models/event').Event;
+var Donation = require('./models/donation').Donation;
 
 // CONTROLLERS
 // =============================================================================
 var feedItemController = require ('./controllers/feedItemController').FeedItemController;
 var listingController = require ('./controllers/listingController').ListingController;
 var eventController = require ('./controllers/eventController').EventController;
+var donationController = require ('./controllers/donationController').DonationController;
 
 
 // ROUTES FOR OUR API
@@ -58,26 +60,16 @@ router.get('/feedItems', function (req, res) {
 
 // WEBHOOK ENDPOINTS
 // =============================================================================
-router.post('/webhooks/square', function (req, res) {
-    console.log('POST from Square');
-    console.log(req.body);
-    var eventType = req.body.event_type;
-    console.log('Event Type: ' + eventType);
-
-    if (eventType == 'INVENTORY_UPDATED') {
-        // TODO: handle notification
-    } else if (eventType == 'TEST_NOTIFICATION') {
-            console.log("TEST NOTIFICATION RECEIVED");
-    }
-    res.json({status:'success'});
-});
 
 router.post('/webhooks/shopify/product', function (req, res) {
     console.log('POST from Shopify');
     console.log(req.body);
 
-    listingController.handleWebhook(req.body);
-
+    if (req.body.product_type = "Donation") {
+        donationController.handleWebhook(req.body);
+    } else {
+        listingController.handleWebhook(req.body);
+    }
     res.json({status:'success'});
 });
 
@@ -85,7 +77,11 @@ router.post('/webhooks/shopify/product/delete', function (req, res) {
     console.log('POST from Shopify');
     console.log(req.body);
 
-    listingController.deleteListing(req.body);
+    if (req.body.product_type = "Donation") {
+        listingController.deleteDonation(req.body);
+    } else {
+        listingController.deleteListing(req.body);
+    }
 
     res.json({status:'success'});
 });

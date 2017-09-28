@@ -91,6 +91,21 @@ types:
       price:
         type: number
         description: The price of the item
+  Donation:
+      type: FeedItem
+      properties:
+        vendorId:
+          type: integer
+          description: The ID of the item on the vendor (Shopify)
+        handle:
+          type: string
+          description: The unique Shopify handle of the product
+        lastUpdatedAt:
+          type: string
+          description: The date the item was last updated on the vendor's system
+        price:
+          type: number
+          description: The price of the item
   EventWebhook:
     properties:
       api_url:
@@ -116,7 +131,7 @@ types:
       count?: integer
       index?: integer
       type?:
-        enum: [story, event, listing]
+        enum: [story, event, listing, donation]
         description: Used to request feed items of only one type
       isActive?:
         type: boolean
