@@ -15,7 +15,6 @@ var feedItemSchema = new mongoose.Schema({
     title: String,
     description: String,
     feedImageUrl: String,
-    index: Number,
     isActive: Boolean
 }, options);
 
