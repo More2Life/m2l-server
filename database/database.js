@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 // DB Connection
 const connectionURI = process.env.IS_PRODUCTION ? process.env.MONGODB_URI : process.env.MONGODB_URI_TEST;
 console.log(connectionURI);
-mongoose.createConnection(connectionURI);
+mongoose.connect(connectionURI);
 
 // CONNECTION EVENTS
 // When successfully connected
