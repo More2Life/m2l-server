@@ -7,7 +7,6 @@
     "http-errors": "^1.6.2",
     "moment": "^2.18.1",
     "mongoose": "^4.10.8",
-    "mongoose-auto-increment": "^5.0.1",
     "mongoose-unique-validator": "^1.0.5",
     "redis": "^2.7.1",
     "request": "^2.81.0"
