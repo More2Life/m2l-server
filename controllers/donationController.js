@@ -23,7 +23,6 @@ var DonationController = {
         var donation = new Donation({
             title: item.title,
             description: item.body_html,
-            index: 0,
             isActive: true,
             vendorId: item.id,
             handle: item.handle,

@@ -27,7 +27,6 @@ function createEvent(eventBody, endRequest) {
             var eventDoc = {
                 title: eventBody.name.text,
                 description: eventBody.description.text,
-                index: 0,
                 isActive: (eventBody.status === 'live') ? true : false,
                 eventStatus: eventBody.status,
                 eventUrl: eventBody.url,

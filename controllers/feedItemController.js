@@ -4,7 +4,7 @@ var FeedItem = require('../models/feedItem').FeedItem;
 var FeedItemController = {
     getFeedItems: function(req, callback) {
         var requestedCount = parseInt(req.query.count);
-        var requestedIndex = parseInt(req.query.index);
+        var requestedIndex = req.query.index;
         var requestedType = req.query.type;
         var requestedIsActive = req.query.isActive;
         console.log('Requested Count: ' + requestedCount);
@@ -16,18 +16,19 @@ var FeedItemController = {
 
         if (requestedIsActive) {
             query = query.where('isActive').equals(requestedIsActive);
-        }
+         }
+
         if (requestedType) {
             query = query.where('type').equals(requestedType);
         }
         if (requestedIndex) {
-            query = query.where('index').lt(requestedIndex);
+            query = query.where('_id').lt(mongoose.Types.ObjectId(requestedIndex));
         }
         if (requestedCount) {
             query = query.limit(requestedCount);
         }
 
-        query.sort('-index').exec(callback);
+        query.sort('-_id').exec(callback);
     }
 }
 
