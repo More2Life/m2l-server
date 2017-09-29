@@ -22,7 +22,7 @@ var feedItemSchema = new mongoose.Schema({
 
 // auto increment index
 feedItemSchema.plugin(autoIncrement.plugin, { model: 'FeedItem', field: 'index' });
-var FeedItem = mongoose.model('feeditems', feedItemSchema);
+var FeedItem = connection.model('feeditems', feedItemSchema);
 
 // create model
 exports.FeedItem = FeedItem;
