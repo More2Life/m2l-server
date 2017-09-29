@@ -16,7 +16,7 @@ var FeedItemController = {
             query = query.where('type').equals(requestedType);
         }
         if (requestedIndex) {
-            query = query.where('_id').lt(requestedIndex);
+            query = query.where('_id').lt(mongoose.Types.ObjectId(requestedIndex));
         }
         if (requestedCount) {
             query = query.limit(requestedCount);
