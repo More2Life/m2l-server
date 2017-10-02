@@ -20,12 +20,14 @@ var DonationBucketController = {
 
     createDonationBucket : (item) => {
         console.log('CREATING DONATION BUCKET');
+        var now = moment().format();
         var donationBucket = new DonationBucket({
             title: item.title,
             description: item.body_html,
             feedImageUrl: item.images[0].src,
             vendorId: item.id,
-            handle: item.handle
+            handle: item.handle,
+            createdAt: now,
         });
 
         DonationBucketController.saveDonationBucket(donationBucket);

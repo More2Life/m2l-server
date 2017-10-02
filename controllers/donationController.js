@@ -20,10 +20,12 @@ var DonationController = {
 
     createDonation : (item) => {
         console.log('CREATING DONATION');
+        var now = moment().format();
         var donation = new Donation({
             title: item.title,
             description: item.body_html,
             isActive: true,
+            createdAt: now,
             vendorId: item.id,
             handle: item.handle,
             feedImageUrl: item.images[0].src,

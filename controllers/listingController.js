@@ -20,10 +20,12 @@ var ListingController = {
 
     createListing : (item) => {
         console.log('CREATING LISTING');
+        var now = moment().format();
         var listing = new Listing({
             title: item.title,
             description: item.body_html,
             isActive: true,
+            createdAt: now,
             vendorId: item.id,
             handle: item.handle,
             feedImageUrl: item.images[0].src,
