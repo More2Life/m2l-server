@@ -24,11 +24,12 @@ function createEvent(eventBody, endRequest) {
             console.log("Error receiving Venue from Eventbrite", error);
             endRequest();
         } else { // have both Event and Venue, so create Event
+            var now = moment().format();
             var eventDoc = {
                 title: eventBody.name.text,
                 description: eventBody.description.text,
-                index: 0,
                 isActive: (eventBody.status === 'live') ? true : false,
+                createdAt: now,
                 eventStatus: eventBody.status,
                 eventUrl: eventBody.url,
                 resourceUri: eventBody.resource_uri,

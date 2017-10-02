@@ -19,15 +19,15 @@ types:
       feedImageUrl:
         type: string
         description: The url to the image to be shown in the feed
-      index:
-        type: integer
-        description: The position of the item in the feed. Used for sorting and paging
       type:
         type: string
         enum: [story, event, listing]
       isActive:
         type: boolean
         description: Should be displayed in the Feed
+      createdAt:
+        type: string
+        description: The date the feed item document was created
       images?:
         type: string[]
         description: URLs to gallery images for this feed item
@@ -91,6 +91,21 @@ types:
       price:
         type: number
         description: The price of the item
+  Donation:
+      type: FeedItem
+      properties:
+        vendorId:
+          type: integer
+          description: The ID of the item on the vendor (Shopify)
+        handle:
+          type: string
+          description: The unique Shopify handle of the product
+        lastUpdatedAt:
+          type: string
+          description: The date the item was last updated on the vendor's system
+        price:
+          type: number
+          description: The price of the item
   EventWebhook:
     properties:
       api_url:
@@ -116,7 +131,7 @@ types:
       count?: integer
       index?: integer
       type?:
-        enum: [story, event, listing]
+        enum: [story, event, listing, donation]
         description: Used to request feed items of only one type
       isActive?:
         type: boolean
@@ -130,6 +145,20 @@ types:
           application/json:
             type: FeedItem[]
             example: !include /examples/feed-example.json
+
+/donationBuckets:
+  description: Get the donation buckets used for arbitrary donation amounts
+  displayName: Donation Bucket
+  get:
+    headers:
+      Accept-Language:
+        description: The language the application is running in. Titles, descriptions, and any other user facing string should come down from the server translated in that language.
+    responses:
+      200:
+        body:
+          application/json:
+            type: DonationBucket[]
+            example: !include /examples/donationBucket-example.json
 
 /webhooks/eventbrite:
   /create:
