@@ -20,6 +20,8 @@ var ListingController = {
 
     createListing : (item) => {
         console.log('CREATING LISTING');
+        var now = moment().format();
+        console.log(now);
         var listing = new Listing({
             title: item.title,
             description: item.body_html,
@@ -36,6 +38,8 @@ var ListingController = {
 
     updateListing : (listing, item) => {
         console.log('UPDATING LISTING');
+        var now = moment().format();
+        console.log(now);
         listing.title = item.title;
         listing.description = item.body_html;
         listing.feedImageUrl = item.images[0].src;
