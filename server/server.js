@@ -15,7 +15,7 @@ var FeedItem    = require('./models/feedItem').FeedItem;
 var Story       = require('./models/story').Story;
 var Listing     = require('./models/listing').Listing;
 var Event       = require('./models/event').Event;
-var Donation = require('./models/donation').Donation;
+var Donation    = require('./models/donation').Donation;
 
 // CONFIGURE APP
 // =============================================================================

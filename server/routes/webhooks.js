@@ -1,10 +1,10 @@
 var express = require('express');
-var router = express.Router();
+var router  = express.Router();
 
-var listingController   = require ('../controllers/listingController').ListingController;
-var eventController     = require ('../controllers/eventController').EventController;
-var donationController = require ('./controllers/donationController').DonationController;
-var donationBucketController = require ('./controllers/donationBucketController').DonationBucketController;
+var listingController           = require ('../controllers/listingController').ListingController;
+var eventController             = require ('../controllers/eventController').EventController;
+var donationController          = require ('./controllers/donationController').DonationController;
+var donationBucketController    = require ('./controllers/donationBucketController').DonationBucketController;
 
 router.post('/shopify/product', function (req, res) {
     console.log('POST from Shopify');

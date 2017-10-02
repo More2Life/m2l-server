@@ -1,8 +1,8 @@
-var express = require('express');
-var router = express.Router();
+var express     = require('express');
+var router      = express.Router();
 
-var feedItemController  = require ('../controllers/feedItemController').FeedItemController;
-var donationBucketController = require ('./controllers/donationBucketController').DonationBucketController;
+var feedItemController          = require ('../controllers/feedItemController').FeedItemController;
+var donationBucketController    = require ('./controllers/donationBucketController').DonationBucketController;
 
 //test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.get('/', function(req, res) {
