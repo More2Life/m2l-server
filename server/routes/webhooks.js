@@ -70,21 +70,4 @@ router.post('/eventbrite/update', function (req, res, next) {
     }
 });
 
-// SHAME. SHAME BE UPON SQUARE.
-// -----------------------------------------------------------------------------
-router.post('/square', function (req, res) {
-    console.log('POST from Square');
-    console.log(req.body);
-    var eventType = req.body.event_type;
-    console.log('Event Type: ' + eventType);
-
-    if (eventType == 'INVENTORY_UPDATED') {
-        // TODO: handle notification
-    } else if (eventType == 'TEST_NOTIFICATION') {
-            console.log("TEST NOTIFICATION RECEIVED");
-    }
-    res.json({status:'success'});
-});
-
-
 module.exports = router;
