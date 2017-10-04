@@ -8,6 +8,9 @@
     "react-dom": "^15.6.1",
     "react-scripts": "1.0.13"
   },
+  "engines": {
+    "node": "8.2.1"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
