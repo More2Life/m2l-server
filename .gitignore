@@ -66,8 +66,5 @@ typings/
 
 *.iml
 
-# This package lock points to npm.apple.com…which does not exist
-package-lock.json
-
 #dumb Mac OS files
 .DS_Store
