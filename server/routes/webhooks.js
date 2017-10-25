@@ -22,6 +22,12 @@ router.use(bodyParser.json({
     }
 }));
 
+router.use((reg, res, next) => {
+    console.log(req.url);
+
+    next();
+});
+
 router.post('/shopify/product', function (req, res) {
     console.log('POST from Shopify');
     console.log(req.body);
