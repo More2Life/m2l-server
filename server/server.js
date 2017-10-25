@@ -51,6 +51,7 @@ console.log('Magic happens on port ' + port);
 const SHOPIFY_SHARED_SECRET = process.env.SHOPIFY_WEBHOOK_SECRET;
 
 app.use(bodyParser.json({
+    console.log("CHECKING SECRET");
     verify: function(req, res, buf, encoding) {
         if (req.url.search('api/webhooks/shopify/') >= 0) {
             console.log("CHECKING SECRET");
