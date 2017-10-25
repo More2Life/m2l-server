@@ -38,7 +38,18 @@ function verifyRequest(req, res, buf, encoding) {
 }
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json(verifyRequest()));
+app.use(bodyParser.json( (req, res, buf) => {
+    const SHOPIFY_SHARED_SECRET = process.env.SHOPIFY_WEBHOOK_SECRET;
+    console.log("CHECKING SECRET");
+    if (req.url.search('api/webhooks/shopify/product') >= 0) {
+        var calculated_signature = crypto.createHmac('sha256', SHOPIFY_SHARED_SECRET)
+            .update(buf)
+            .digest('base64');
+        if (calculated_signature != req.headers['x-shopify-hmac-sha256']) {
+            throw new Error('Invalid signature. Access denied');
+        }
+    }
+});
 
 // REGISTER OUR ROUTES
 // =============================================================================
