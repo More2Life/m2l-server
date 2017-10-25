@@ -24,21 +24,8 @@ var app         = express();
 var api         = require ('./routes/api');
 var webhooks    = require('./routes/webhooks');
 
-function verifyRequest(req, res, buf, encoding) {
-    const SHOPIFY_SHARED_SECRET = process.env.SHOPIFY_WEBHOOK_SECRET;
-    console.log("CHECKING SECRET");
-    if (req.url.search('api/webhooks/shopify/product') >= 0) {
-        var calculated_signature = crypto.createHmac('sha256', SHOPIFY_SHARED_SECRET)
-            .update(buf)
-            .digest('base64');
-        if (calculated_signature != req.headers['x-shopify-hmac-sha256']) {
-            throw new Error('Invalid signature. Access denied');
-        }
-    }
-}
-
 app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(bodyParser.json({ verify: verifyRequest }));
+app.use(bodyParser.json());
 
 // REGISTER OUR ROUTES
 // =============================================================================
