@@ -17,7 +17,7 @@ router.use((req, res, next) => {
     if (req.url.search('.*\/shopify\/.*') >= 0) {
         const SHOPIFY_SHARED_SECRET = process.env.SHOPIFY_WEBHOOK_SECRET;
         var calculated_signature = crypto.createHmac('sha256', SHOPIFY_SHARED_SECRET)
-            .update(new Buffer(req.rawBody)
+            .update(new Buffer(req.rawBody))
             .digest('base64');
         if (calculated_signature != req.headers['x-shopify-hmac-sha256']) {
             res.status(403).json({error: "Access Denied"});
