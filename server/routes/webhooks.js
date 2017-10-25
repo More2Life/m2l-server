@@ -18,7 +18,7 @@ router.use((req, res, next) => {
         const SHOPIFY_SHARED_SECRET = process.env.SHOPIFY_WEBHOOK_SECRET;
         console.log("CHECKING SECRET");
         var calculated_signature = crypto.createHmac('sha256', SHOPIFY_SHARED_SECRET)
-            .update(new Buffer(req.body, 'utf8'))
+            .update(new Buffer(req.body))
             .digest('base64');
         if (calculated_signature != req.headers['x-shopify-hmac-sha256']) {
             throw new Error('Invalid signature. Access denied');
