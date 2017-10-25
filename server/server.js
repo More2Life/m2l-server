@@ -24,7 +24,7 @@ var app         = express();
 var api         = require ('./routes/api');
 var webhooks    = require('./routes/webhooks');
 
-function verifyRequest(req, res, buf, encoding) => {
+function verifyRequest(req, res, buf, encoding) {
     const SHOPIFY_SHARED_SECRET = process.env.SHOPIFY_WEBHOOK_SECRET;
     console.log("CHECKING SECRET");
     if (req.url.search('api/webhooks/shopify/product') >= 0) {
@@ -35,6 +35,7 @@ function verifyRequest(req, res, buf, encoding) => {
             throw new Error('Invalid signature. Access denied');
         }
     }
+}
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ verify: verifyRequest }));
