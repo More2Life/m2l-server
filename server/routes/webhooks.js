@@ -22,8 +22,8 @@ router.use(bodyParser.json({
     }
 }));
 
-router.use((reg, res, next) => {
-    console.log(req.url);
+router.use((req, res, next) => {
+    console.log(req.url.search);
 
     next();
 });
