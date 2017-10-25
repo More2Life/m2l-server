@@ -8,6 +8,7 @@ var mongoose    = require('mongoose');
 var database    = require('./database/database');
 var createError = require('http-errors');
 var path        = require('path');
+var crypto      = require('crypto');
 
 // MODELS
 // =============================================================================
@@ -20,6 +21,27 @@ var Donation    = require('./models/donation').Donation;
 // CONFIGURE APP
 // =============================================================================
 var app         = express();
+
+app.use((req, res, next) => {
+    // Validate shopify webhook token. If it doesn't match our secret, reject the request
+    req.rawBody = '';
+    req.on('data', function(chunk) {
+        req.rawBody += chunk;
+    });
+
+    if (req.url.search('.*\/shopify\/.*') >= 0) {
+        const SHOPIFY_SHARED_SECRET = process.env.SHOPIFY_WEBHOOK_SECRET;
+        var calculated_signature = crypto.createHmac('sha256', SHOPIFY_SHARED_SECRET)
+            .update(new Buffer(req.rawBody))
+            .digest('base64');
+        if (calculated_signature != req.headers['x-shopify-hmac-sha256']) {
+            res.status(403).json({error: "Access Denied"});
+            throw new Error('Invalid signature. Access denied');
+        }
+    }
+
+    next();
+});
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
