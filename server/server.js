@@ -24,9 +24,9 @@ var app         = express();
 var api         = require ('./routes/api');
 var webhooks    = require('./routes/webhooks');
 
-// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({
-    verify: (req, res, buf, encoding) => {
+    verify: (req, res, buf) => {
         const SHOPIFY_SHARED_SECRET = process.env.SHOPIFY_WEBHOOK_SECRET;
         console.log("CHECKING SECRET");
         if (req.url.search('api/webhooks/shopify/product') >= 0) {
