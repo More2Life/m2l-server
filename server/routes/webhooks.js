@@ -11,8 +11,8 @@ router.use((req, res, next) => {
     console.log("REQUEST URL SEARCH");
     console.log(req.url.search);
 
-    // Validate shopify webhook token. If it doesn;t match our secret, reject the request
-    if (req.url.search('api/webhooks/shopify/*') >= 0) {
+    // Validate shopify webhook token. If it doesn't match our secret, reject the request
+    if (req.url.search('api/webhooks/shopify/product') >= 0) {
         const SHOPIFY_SHARED_SECRET = process.env.SHOPIFY_WEBHOOK_SECRET;
         console.log("CHECKING SECRET");
         var calculated_signature = crypto.createHmac('sha256', SHOPIFY_SHARED_SECRET)
