@@ -10,6 +10,8 @@ var donationBucketController    = require ('../controllers/donationBucketControl
 router.use((req, res, next) => {
     console.log("REQUEST URL");
     console.log(req.url);
+    console.log("REQUEST BODY");
+    console.log(req.body);
 
     // Validate shopify webhook token. If it doesn't match our secret, reject the request
     if (req.url.search('.*\/shopify\/.*') >= 0) {
@@ -23,7 +25,7 @@ router.use((req, res, next) => {
         }
     }
 
-    next();
+    // next();
 });
 
 router.post('/shopify/product', function (req, res) {
