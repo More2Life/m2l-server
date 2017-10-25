@@ -34,6 +34,8 @@ app.use((req, res, next) => {
         var calculated_signature = crypto.createHmac('sha256', SHOPIFY_SHARED_SECRET)
             .update(new Buffer(req.rawBody))
             .digest('base64');
+        console.log(calculated_signature);
+        console.log(req.headers['x-shopify-hmac-sha256']);
         if (calculated_signature != req.headers['x-shopify-hmac-sha256']) {
             res.status(403).json({error: "Access Denied"});
             throw new Error('Invalid signature. Access denied');

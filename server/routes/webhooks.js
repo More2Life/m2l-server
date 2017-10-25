@@ -1,6 +1,5 @@
 var express     = require('express');
 var router      = express.Router();
-var crypto      = require('crypto');
 
 var listingController           = require ('../controllers/listingController').ListingController;
 var eventController             = require ('../controllers/eventController').EventController;
