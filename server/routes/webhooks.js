@@ -6,21 +6,21 @@ var eventController             = require ('../controllers/eventController').Eve
 var donationController          = require ('../controllers/donationController').DonationController;
 var donationBucketController    = require ('../controllers/donationBucketController').DonationBucketController;
 
-router.post('/shopify/product', function (req, res) {
-    console.log('POST from Shopify');
-    console.log(req.body);
-    console.log(req.headers);
-
-    if (req.body.product_type == "Donation-Bucket") {
-        donationBucketController.handleWebhook(req.body);
-    } else if (req.body.product_type == "Donation") {
-        donationController.handleWebhook(req.body);
-    } else {
-        listingController.handleWebhook(req.body);
-    }
-
-    res.json({status:'success'});
-});
+// router.post('/shopify/product', function (req, res) {
+//     console.log('POST from Shopify');
+//     console.log(req.body);
+//     console.log(req.headers);
+//
+//     if (req.body.product_type == "Donation-Bucket") {
+//         donationBucketController.handleWebhook(req.body);
+//     } else if (req.body.product_type == "Donation") {
+//         donationController.handleWebhook(req.body);
+//     } else {
+//         listingController.handleWebhook(req.body);
+//     }
+//
+//     res.json({status:'success'});
+// });
 
 router.post('/shopify/product/delete', function (req, res) {
     console.log('POST from Shopify');

@@ -47,6 +47,22 @@ app.use(express.static(path.join(__dirname, '../web/build')));  // Serve static 
 app.use('/api', api);
 app.use('/api/webhooks', webhooks);
 
+app.post('/shopify/product', function (req, res) {
+    console.log('POST from Shopify');
+    console.log(req.body);
+    console.log(req.headers);
+
+    if (req.body.product_type == "Donation-Bucket") {
+        donationBucketController.handleWebhook(req.body);
+    } else if (req.body.product_type == "Donation") {
+        donationController.handleWebhook(req.body);
+    } else {
+        listingController.handleWebhook(req.body);
+    }
+
+    res.json({status:'success'});
+});
+
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
 app.get('*', function(req, res) {
