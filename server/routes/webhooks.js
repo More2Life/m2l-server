@@ -9,6 +9,7 @@ var donationBucketController    = require ('../controllers/donationBucketControl
 router.post('/shopify/product', function (req, res) {
     console.log('POST from Shopify');
     console.log(req.body);
+    console.log(req.headers);
 
     if (req.body.product_type == "Donation-Bucket") {
         donationBucketController.handleWebhook(req.body);
