@@ -6,22 +6,6 @@ var eventController             = require ('../controllers/eventController').Eve
 var donationController          = require ('../controllers/donationController').DonationController;
 var donationBucketController    = require ('../controllers/donationBucketController').DonationBucketController;
 
-const SHOPIFY_SHARED_SECRET = process.env.SHOPIFY_WEBHOOK_SECRET;
-
-app.use(bodyParser.json({
-    verify: function(req, res, buf, encoding) {
-        if (req.url.search('api/webhooks/shopify/') >= 0) {
-            console.log("CHECKING SECRET");
-            var calculated_signature = crypto.createHmac('sha256', SHOPIFY_SHARED_SECRET)
-                .update(buf)
-                .digest('base64');
-            if (calculated_signature != req.headers['x-shopify-hmac-sha256']) {
-                throw new Error('Invalid signature. Access denied');
-            }
-        }
-    }
-}));
-
 router.post('/shopify/product', function (req, res) {
     console.log('POST from Shopify');
     console.log(req.body);

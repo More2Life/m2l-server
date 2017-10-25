@@ -44,3 +44,22 @@ app.get('*', function(req, res) {
 var port = process.env.PORT || 8080;
 app.listen(port);
 console.log('Magic happens on port ' + port);
+
+// SECRET VERIFICATION
+// =============================================================================
+
+const SHOPIFY_SHARED_SECRET = process.env.SHOPIFY_WEBHOOK_SECRET;
+
+app.use(bodyParser.json({
+    verify: function(req, res, buf, encoding) {
+        if (req.url.search('api/webhooks/shopify/') >= 0) {
+            console.log("CHECKING SECRET");
+            var calculated_signature = crypto.createHmac('sha256', SHOPIFY_SHARED_SECRET)
+                .update(buf)
+                .digest('base64');
+            if (calculated_signature != req.headers['x-shopify-hmac-sha256']) {
+                throw new Error('Invalid signature. Access denied');
+            }
+        }
+    }
+}));
