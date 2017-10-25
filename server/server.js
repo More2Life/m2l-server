@@ -8,7 +8,6 @@ var mongoose    = require('mongoose');
 var database    = require('./database/database');
 var createError = require('http-errors');
 var path        = require('path');
-var crypto      = require('crypto');
 
 // MODELS
 // =============================================================================
