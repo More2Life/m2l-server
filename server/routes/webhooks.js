@@ -8,11 +8,6 @@ var donationController          = require ('../controllers/donationController').
 var donationBucketController    = require ('../controllers/donationBucketController').DonationBucketController;
 
 router.use((req, res, next) => {
-    console.log("REQUEST URL");
-    console.log(req.url);
-    console.log("REQUEST BODY");
-    console.log(req.body);
-
     // Validate shopify webhook token. If it doesn't match our secret, reject the request
     if (req.url.search('.*\/shopify\/.*') >= 0) {
         const SHOPIFY_SHARED_SECRET = process.env.SHOPIFY_WEBHOOK_SECRET;
@@ -20,8 +15,7 @@ router.use((req, res, next) => {
             .update(new Buffer(JSON.stringify(req.body)))
             .digest('base64');
         if (calculated_signature != req.headers['x-shopify-hmac-sha256']) {
-            // throw new Error('Invalid signature. Access denied');
-            res.status(403);
+            throw new Error('Invalid signature. Access denied');
             res.json({status:'Access Denied'});
         }
     }
@@ -32,7 +26,6 @@ router.use((req, res, next) => {
 router.post('/shopify/product', function (req, res) {
     console.log('POST from Shopify');
     console.log(req.body);
-    console.log(req.headers);
 
     if (req.body.product_type == "Donation-Bucket") {
         donationBucketController.handleWebhook(req.body);
