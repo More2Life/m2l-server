@@ -21,7 +21,9 @@ router.use((req, res, next) => {
             .update(new Buffer(JSON.stringify(req.body)))
             .digest('base64');
         if (calculated_signature != req.headers['x-shopify-hmac-sha256']) {
-            throw new Error('Invalid signature. Access denied');
+            // throw new Error('Invalid signature. Access denied');
+            res.status(403);
+            res.json({status:'Access Denied'});
         }
     }
 
