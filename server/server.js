@@ -31,6 +31,7 @@ app.use((req, res, next) => {
 
     if (req.url.search('.*\/shopify\/.*') >= 0) {
         const SHOPIFY_SHARED_SECRET = process.env.SHOPIFY_WEBHOOK_SECRET;
+        console.log(SHOPIFY_SHARED_SECRET);
         var calculated_signature = crypto.createHmac('sha256', SHOPIFY_SHARED_SECRET)
             .update(new Buffer(req.rawBody))
             .digest('base64');
