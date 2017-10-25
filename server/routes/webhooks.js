@@ -8,8 +8,10 @@ var donationController          = require ('../controllers/donationController').
 var donationBucketController    = require ('../controllers/donationBucketController').DonationBucketController;
 
 router.use((req, res, next) => {
+    console.log("REQUEST URL SEARCH");
     console.log(req.url.search);
 
+    // Validate shopify webhook token. If it doesn;t match our secret, reject the request
     if (req.url.search('api/webhooks/shopify/*') >= 0) {
         const SHOPIFY_SHARED_SECRET = process.env.SHOPIFY_WEBHOOK_SECRET;
         console.log("CHECKING SECRET");
