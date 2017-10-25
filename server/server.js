@@ -27,7 +27,7 @@ var webhooks    = require('./routes/webhooks');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({
     verify: function(req, res, buf, encoding) {
-        const SHOPIFY_SHARED_SECRET = process.env.SHOPIFY_WEBHOOK_SECRET;
+        // const SHOPIFY_SHARED_SECRET = process.env.SHOPIFY_WEBHOOK_SECRET;
         console.log("CHECKING SECRET");
         if (req.url.search('api/webhooks/shopify/product') >= 0) {
             var calculated_signature = crypto.createHmac('sha256', SHOPIFY_SHARED_SECRET)
