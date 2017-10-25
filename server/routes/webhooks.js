@@ -1,29 +1,24 @@
 var express     = require('express');
 var router      = express.Router();
-var bodyParser  = require('body-parser');
 
 var listingController           = require ('../controllers/listingController').ListingController;
 var eventController             = require ('../controllers/eventController').EventController;
 var donationController          = require ('../controllers/donationController').DonationController;
 var donationBucketController    = require ('../controllers/donationBucketController').DonationBucketController;
 
-router.use(bodyParser.json({
-    verify : (req, res, buf, encoding) => {
-        const SHOPIFY_SHARED_SECRET = process.env.SHOPIFY_WEBHOOK_SECRET;
-        console.log("CHECKING SECRET");
-        if (req.url.search('api/webhooks/shopify/product') >= 0) {
-            var calculated_signature = crypto.createHmac('sha256', SHOPIFY_SHARED_SECRET)
-                .update(buf)
-                .digest('base64');
-            if (calculated_signature != req.headers['x-shopify-hmac-sha256']) {
-                throw new Error('Invalid signature. Access denied');
-            }
-        }
-    }
-}));
-
 router.use((req, res, next) => {
     console.log(req.url.search);
+
+    if (req.url.search('api/webhooks/shopify/*') >= 0) {
+        const SHOPIFY_SHARED_SECRET = process.env.SHOPIFY_WEBHOOK_SECRET;
+        console.log("CHECKING SECRET");
+        var calculated_signature = crypto.createHmac('sha256', SHOPIFY_SHARED_SECRET)
+            .update(new Buffer(req.body, 'utf8'))
+            .digest('base64');
+        if (calculated_signature != req.headers['x-shopify-hmac-sha256']) {
+            throw new Error('Invalid signature. Access denied');
+        }
+    }
 
     next();
 });
