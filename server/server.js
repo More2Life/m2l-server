@@ -51,9 +51,8 @@ console.log('Magic happens on port ' + port);
 const SHOPIFY_SHARED_SECRET = process.env.SHOPIFY_WEBHOOK_SECRET;
 
 app.use(bodyParser.json({
-    console.log("CHECKING SECRET");
     verify: function(req, res, buf, encoding) {
-        if (req.url.search('api/webhooks/shopify/') >= 0) {
+        if (req.url.search('api/webhooks/shopify/product') >= 0) {
             console.log("CHECKING SECRET");
             var calculated_signature = crypto.createHmac('sha256', SHOPIFY_SHARED_SECRET)
                 .update(buf)
