@@ -38,7 +38,7 @@ function verifyRequest(req, res, buf, encoding) {
 }
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json({ verify: verifyRequest }));
+// app.use(bodyParser.json({ verify: verifyRequest }));
 
 // REGISTER OUR ROUTES
 // =============================================================================
