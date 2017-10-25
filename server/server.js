@@ -42,7 +42,7 @@ app.use(bodyParser.json({
 
 // REGISTER OUR ROUTES
 // =============================================================================
-app.use(express.static(path.join(__dirname, '../web/build')));  // Serve static files from the React app
+// app.use(express.static(path.join(__dirname, '../web/build')));  // Serve static files from the React app
 
 app.use('/api', api);
 app.use('/api/webhooks', webhooks);
