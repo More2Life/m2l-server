@@ -49,7 +49,7 @@ app.use(bodyParser.json( (req, res, buf) => {
             throw new Error('Invalid signature. Access denied');
         }
     }
-});
+}));
 
 // REGISTER OUR ROUTES
 // =============================================================================
