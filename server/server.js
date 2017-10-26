@@ -32,20 +32,24 @@ app.use((req, res, next) => {
         req.rawBody += chunk;
     });
 
-    if (req.url.search('.*\/shopify\/.*') >= 0) {
-        const SHOPIFY_SHARED_SECRET = process.env.SHOPIFY_WEBHOOK_SECRET;
-        console.log(SHOPIFY_SHARED_SECRET);
+    req.on('end', function() {
+        console.log("END: RAW BODY");
         console.log(req.rawBody);
-        var calculated_signature = crypto.createHmac('sha256', SHOPIFY_SHARED_SECRET)
-            .update(req.body)
-            .digest('base64');
-        console.log(calculated_signature);
-        console.log(req.headers['x-shopify-hmac-sha256']);
-        if (calculated_signature != req.headers['x-shopify-hmac-sha256']) {
-            res.status(403).json({error: "Access Denied"});
-            throw new Error('Invalid signature. Access denied');
+
+        if (req.url.search('.*\/shopify\/.*') >= 0) {
+            const SHOPIFY_SHARED_SECRET = process.env.SHOPIFY_WEBHOOK_SECRET;
+            console.log(SHOPIFY_SHARED_SECRET);
+            var calculated_signature = crypto.createHmac('sha256', SHOPIFY_SHARED_SECRET)
+                .update(req.body)
+                .digest('base64');
+            console.log(calculated_signature);
+            console.log(req.headers['x-shopify-hmac-sha256']);
+            if (calculated_signature != req.headers['x-shopify-hmac-sha256']) {
+                res.status(403).json({error: "Access Denied"});
+                throw new Error('Invalid signature. Access denied');
+            }
         }
-    }
+    });
 
     next();
 });
