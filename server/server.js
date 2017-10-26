@@ -29,16 +29,18 @@ app.use(bodyParser.json());
 
 app.use((req, res, next) => {
     // Validate shopify webhook token. If it doesn't match our secret, reject the request
-    // req.rawBody = '';
-    // req.on('data', function(chunk) {
-    //     console.log();
-    //     req.rawBody += chunk;
-    // });
+    req.rawBody = '';
+    req.setEncoding('utf8');
+
+    req.on('data', function(chunk) {
+        console.log("RAW");
+        req.rawBody += chunk;
+    });
 
     if (req.url.search('.*\/shopify\/.*') >= 0) {
         const SHOPIFY_SHARED_SECRET = process.env.SHOPIFY_WEBHOOK_SECRET;
         console.log(SHOPIFY_SHARED_SECRET);
-        console.log(req.body);
+        console.log(req.rawBody);
         var calculated_signature = crypto.createHmac('sha256', SHOPIFY_SHARED_SECRET)
             .update(req.body)
             .digest('base64');
