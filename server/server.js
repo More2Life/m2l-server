@@ -23,12 +23,11 @@ var Donation    = require('./models/donation').Donation;
 var app         = express();
 
 app.use((req, res, next) => {
-    // Validate shopify webhook token. If it doesn't match our secret, reject the request
+
     req.rawBody = '';
-    req.setEncoding('utf8');
+    // req.setEncoding('utf8');
 
     req.on('data', function(chunk) {
-        console.log("RAW");
         req.rawBody += chunk;
     });
 
@@ -36,6 +35,7 @@ app.use((req, res, next) => {
         console.log("END: RAW BODY");
         console.log(req.rawBody);
 
+        // Validate shopify webhook token. If the hashes don't match, reject the request
         if (req.url.search('.*\/shopify\/.*') >= 0) {
             const SHOPIFY_SHARED_SECRET = process.env.SHOPIFY_WEBHOOK_SECRET;
             console.log(SHOPIFY_SHARED_SECRET);
