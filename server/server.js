@@ -40,7 +40,7 @@ app.use((req, res, next) => {
             const SHOPIFY_SHARED_SECRET = process.env.SHOPIFY_WEBHOOK_SECRET;
             console.log(SHOPIFY_SHARED_SECRET);
             var calculated_signature = crypto.createHmac('sha256', SHOPIFY_SHARED_SECRET)
-                .update(req.body)
+                .update(req.rawBody)
                 .digest('base64');
             console.log(calculated_signature);
             console.log(req.headers['x-shopify-hmac-sha256']);
