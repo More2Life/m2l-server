@@ -22,19 +22,25 @@ var Donation    = require('./models/donation').Donation;
 // =============================================================================
 var app         = express();
 
+
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 app.use((req, res, next) => {
     // Validate shopify webhook token. If it doesn't match our secret, reject the request
-    req.rawBody = '';
-    req.on('data', function(chunk) {
-        req.rawBody += chunk;
-    });
+    // req.rawBody = '';
+    // req.on('data', function(chunk) {
+    //     console.log();
+    //     req.rawBody += chunk;
+    // });
 
     if (req.url.search('.*\/shopify\/.*') >= 0) {
         const SHOPIFY_SHARED_SECRET = process.env.SHOPIFY_WEBHOOK_SECRET;
         console.log(SHOPIFY_SHARED_SECRET);
-        console.log(req.rawBody);
+        console.log(req.body);
         var calculated_signature = crypto.createHmac('sha256', SHOPIFY_SHARED_SECRET)
-            .update(new Buffer(req.rawBody))
+            .update(req.body)
             .digest('base64');
         console.log(calculated_signature);
         console.log(req.headers['x-shopify-hmac-sha256']);
@@ -46,9 +52,6 @@ app.use((req, res, next) => {
 
     next();
 });
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 
 // REGISTER OUR ROUTES
 // =============================================================================
