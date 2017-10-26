@@ -22,11 +22,6 @@ var Donation    = require('./models/donation').Donation;
 // =============================================================================
 var app         = express();
 
-
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
 app.use((req, res, next) => {
     // Validate shopify webhook token. If it doesn't match our secret, reject the request
     req.rawBody = '';
@@ -54,6 +49,11 @@ app.use((req, res, next) => {
 
     next();
 });
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+
 
 // REGISTER OUR ROUTES
 // =============================================================================
