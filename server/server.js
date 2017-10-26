@@ -31,8 +31,6 @@ app.use((req, res, next) => {
 
     req.on('end', function() {
         // Validate shopify webhook token. If the hashes don't match, reject the request
-
-        // var result = /.*\/shopify\/.*/.test(req.url);
         if (/.*\/shopify\/.*/.test(req.url)) {
             const SHOPIFY_SHARED_SECRET = process.env.SHOPIFY_WEBHOOK_SECRET;
             var calculated_signature = crypto.createHmac('sha256', SHOPIFY_SHARED_SECRET)
