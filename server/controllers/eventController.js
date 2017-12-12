@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Event = require('../models/event').Event;
 var request = require('request');
 var createError = require('http-errors');
+var moment = require('moment');
 
 const TOKEN = process.env.EVENTBRITE_BEARER_TOKEN;
 const VENUEURI = "https://www.eventbriteapi.com/v3/venues/"
