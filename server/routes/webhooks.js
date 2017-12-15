@@ -43,11 +43,15 @@ router.post('/eventbrite/create', function (req, res, next) {
     } else if (req.body.config.action == 'event.created') {
         eventController.createFromEventbrite(req.body.api_url, function(err) {
             if (err) {
-                return next(err);
+                console.error(err);
+                res.json("We had a problem but you don't need to know about that.");
+            } else {
+                console.log("Successfully handled Eventbrite create hook");
+                res.json("Thanks, Eventbrite. We'll take care of it from here.");
             }
-            res.json("Thanks, Eventbrite. We'll take care of it from here.");
         });
     } else {
+        console.log("eventbrite/create endpoint received non-create event");
         res.json("That's not event.created but thanks anyway.");
     }
 });
@@ -61,11 +65,15 @@ router.post('/eventbrite/update', function (req, res, next) {
     } else if (req.body.config.action == 'event.updated') {
         eventController.updateFromEventbrite(req.body.api_url, function(err) {
             if (err) {
-                return next(err);
+                console.error(err);
+                res.json("We had a problem but you don't need to know about that.");
+            } else {
+                console.log('Successfully handled Eventbrite update hook');
+                res.json("Thanks, Eventbrite. We'll take care of it from here.");
             }
-            res.json("Thanks, Eventbrite. We'll take care of it from here.");
         });
     } else {
+        console.log("eventbrite/update endpoint received non-update event");
         res.json("That's not event.updated but thanks anyway.");
     }
 });
