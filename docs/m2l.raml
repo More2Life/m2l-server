@@ -89,8 +89,8 @@ types:
         type: string
         description: The date the item was last updated on the vendor's system
       price:
-        type: number
-        description: The price of the item
+        type: string
+        description: The price of the item for labelling purposes
   Donation:
       type: FeedItem
       properties:
@@ -104,8 +104,8 @@ types:
           type: string
           description: The date the item was last updated on the vendor's system
         price:
-          type: number
-          description: The price of the item
+          type: string
+          description: The 'price' of the item for labelling purposes (always has value "Donation")
   EventWebhook:
     properties:
       api_url:
@@ -116,7 +116,7 @@ types:
         properties:
           action:
             type: string
-            description: Name of the event that occured on Eventbrite
+            description: Name of the event that occurred on Eventbrite
           endpoint_url:
             type: string
             description: The URL to which Eventbrite will POST the hook body
