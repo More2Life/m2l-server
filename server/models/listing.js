@@ -7,7 +7,7 @@ var listingSchema = new mongoose.Schema({
     vendorId: Number,
     handle: String,
     lastUpdatedAt: String,
-    price: Number
+    price: String
 });
 
 // discriminator used for document inheritance within the same collection
