@@ -44,7 +44,7 @@
     "vendorId" : 47363942276,
     "handle" : "t-shirt",
     "lastUpdatedAt" : "2017-08-10T17:15:05.589Z",
-    "price" : 25.00
+    "price" : "$25.00"
   },
   {
     "_id" : "donation1",
@@ -57,7 +57,7 @@
     "vendorId" : 47361943276,
     "handle" : "donation-1",
     "lastUpdatedAt" : "2017-08-10T17:15:05.589Z",
-    "price" : 25.00
+    "price" : "Donation"
   },
   {
     "_id" : "event2",
