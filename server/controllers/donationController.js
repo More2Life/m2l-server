@@ -30,7 +30,7 @@ var DonationController = {
             handle: item.handle,
             feedImageUrl: item.images[0].src,
             lastUpdatedAt: item.updated_at,
-            price: item.variants[0].price
+            price: 'Donation'
         });
 
         DonationController.saveDonation(donation);
@@ -43,7 +43,6 @@ var DonationController = {
         donation.feedImageUrl = item.images[0].src;
         donation.handle = item.handle;
         donation.lastUpdatedAt = item.updated_at;
-        donation.price = item.variants[0].price;
 
         DonationController.saveDonation(donation);
     },

@@ -30,7 +30,7 @@ var ListingController = {
             handle: item.handle,
             feedImageUrl: item.images[0].src,
             lastUpdatedAt: item.updated_at,
-            price: item.variants[0].price
+            price: '$'+item.variants[0].price.toFixed(2);
         });
 
         ListingController.saveListing(listing);
@@ -43,7 +43,7 @@ var ListingController = {
         listing.feedImageUrl = item.images[0].src;
         listing.handle = item.handle;
         listing.lastUpdatedAt = item.updated_at;
-        listing.price = item.variants[0].price;
+        listing.price = '$'+item.variants[0].price.toFixed(2);
 
         ListingController.saveListing(listing);
     },
